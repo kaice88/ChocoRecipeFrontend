@@ -1,0 +1,17 @@
+.tab{
+ display: flex;
+ color: black;
+ 
+}
+h3 {
+ margin-right: 30px;
+ color: rgba(0, 0, 0, 0.5);
+}
+.active {
+    border-bottom: 2px solid #3a9691;
+    height: 30px;
+    color: black;
+}
+a {
+    text-decoration: none;
+}

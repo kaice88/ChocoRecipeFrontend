@@ -1,0 +1,13 @@
+.button {
+    background-color: #3a9691;
+    color: #ffffff;
+    border-radius: 5px ;
+    width: 100%;
+    border: none;
+    outline: none;
+    height: 60px;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 20px 0 20px 0;
+}
