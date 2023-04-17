@@ -1,5 +1,3 @@
-// import ButtonAuth from "../component/UI/ButtonAuth";
-// import Input from "../component/UI/Input";
 import authImage from "../assets/cake.jpg";
 import Tab from "../component/UI/Tab";
 import LoginForm from "../component/Form/LoginForm";

@@ -1,0 +1,29 @@
+.img{
+    position: relative;
+}
+
+.img img{
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.search{
+    position: absolute;
+    padding: 20px;
+    width: 100%;
+    top: 0;
+    left: 50%;
+    transform: translateX(-20%);
+    z-index: 1;
+}
+.recipe_list{
+    width: 60%;
+    text-align: center;
+    margin:auto
+}
+.container{
+    width: 100%;
+    text-align: center;
+    margin:auto
+}

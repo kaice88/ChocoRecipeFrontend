@@ -1,0 +1,51 @@
+.img {
+    border-radius: 10px;
+    padding-bottom: 10px;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.col-1 {
+    flex: 3;
+    text-align: left;
+}
+.col-2 {
+    flex: 1;
+    text-align: right;
+}
+
+.name {
+    font-family: 'Josefin Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 22px;
+    color: #232323;
+}
+
+.like {
+    font-family: 'Josefin Sans';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 12px;
+    color: #707070;
+}
+
+.username {
+    font-family: 'Josefin Sans';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 12px;
+    line-height: 12px;
+    color: #707070;
+}
+
+.recipe-border{
+    width: 220px;
+    padding-top: 20px;
+    padding-left: 20px;
+}
