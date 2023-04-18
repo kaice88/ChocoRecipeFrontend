@@ -10,6 +10,7 @@ function Input(props) {
           value={props.value}
           placeholder={props.placeholder}
           name={props.label}
+          id={props.label}
         />
         <span className={styles["input-border"]}></span>
       </div>

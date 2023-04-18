@@ -1,4 +1,3 @@
-import ListRecipes from "../component/Recipes/ListRecipes";
 function Home(props) {
   const dummy_arr = [
     {
@@ -20,7 +19,7 @@ function Home(props) {
   ];
   return (
     <>
-      <ListRecipes recipe_list={dummy_arr}></ListRecipes>
+      <h2>Home 🙌</h2>
     </>
   );
 }

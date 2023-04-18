@@ -17,7 +17,13 @@ function Signup(props) {
       </div>
       <div className={styles.content}>
         <div className={styles.body}>
-          <Tab tab_list={tab_list} weight="800" size="24px"></Tab>
+          <Tab
+            tab_list={tab_list}
+            weight="800"
+            size="24px"
+            flexDirection="row"
+            height="30px"
+          ></Tab>
           <SignUpForm></SignUpForm>
         </div>
       </div>
