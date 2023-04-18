@@ -1,20 +1,23 @@
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import styles from "./Like.module.css";
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 
 function Like(props) {
+  const [isLiked, setIsLiked] = useState(props.isLiked);
+  
   let iconClass = "fa-regular fa-heart"; 
-  if (props.isLiked) {
+  if (isLiked) {
     iconClass = "fa-sharp fa-solid fa-heart"; 
   }
 
-  // function handleLikeClick() {
-  //   props.onClick();
-  // }
+  const handleClick = () => {
+    setIsLiked(!isLiked);
+  };
   
   return (
-    <div className={styles.like}>
+    <div className={styles.like} onClick={handleClick}>
       <span className={styles["icon-border"]}>
         <i className={iconClass}></i>
       </span>
