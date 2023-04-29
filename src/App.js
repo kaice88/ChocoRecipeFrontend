@@ -3,6 +3,7 @@ import Login from "./page/Login";
 import Signup from "./page/Signup";
 import Home from "./page/Home";
 import Root from "./page/Root";
+import ViewRecipe from "./page/ViewRecipe";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
   {
     path: "home",
     element: <Home></Home>,
+  },
+  {
+    path: "viewrecipe",
+    element: <ViewRecipe></ViewRecipe>,
   },
 ]);
 
