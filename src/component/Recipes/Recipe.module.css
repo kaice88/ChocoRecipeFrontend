@@ -1,0 +1,71 @@
+.img {
+    border-radius: 10px;
+    padding-top: 10px;
+    padding-bottom: 5px;
+    width: 100%
+}
+
+.row {
+    overflow: auto;
+    padding-bottom: 5px;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.icon-button{
+    margin-bottom: 5px;
+}
+
+.icon-container{
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1;
+    margin-top: 18px;
+    margin-right: 8px;
+}
+
+.col-1 {
+    text-align: left;
+    width: 70%;
+    float: left;
+}
+
+.col-2 {
+    text-align: right;
+    width: 30%;
+    float: right;
+}
+
+.name {
+    font-family: 'Josefin Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 22px;
+    color: #232323;
+}
+
+.like {
+    font-family: 'Josefin Sans';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 12px;
+    color: #707070;
+}
+
+.username {
+    font-family: 'Josefin Sans';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 12px;
+    line-height: 12px;
+    color: #707070;
+}
+
+.recipe-border {
+    width: 220px;
+    margin: 8px 8px 32px;
+}

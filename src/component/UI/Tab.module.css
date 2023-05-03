@@ -6,13 +6,19 @@
 
 .active {
     border-bottom: 2px solid #3a9691;
-    color: #232323;
+    color: #232323 !important;
 }
-a {
+.tab-item {
     text-decoration: none;
-}
-h3 {
     margin-right: 30px;
     color: rgba(0, 0, 0, 0.5);
-    /* height: 22px; */
-   }
+    font-family: 'Josefin Sans', sans-serif;
+}
+.tab-item:hover{
+    color: #3a969175;
+}
+/* h3 {
+    margin-right: 30px;
+    color: rgba(0, 0, 0, 0.5);
+    /* height: 22px; 
+   } */

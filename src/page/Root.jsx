@@ -20,10 +20,19 @@ function Root() {
   }, [data, dispatch]);
   return (
     <>
-      <Layout>
+      <Layout hasSider>
         <Sidebar></Sidebar>
-        <Layout>
-          <Content style={{ height: "100vh", backgroundColor: "white" }}>
+        <Layout
+          style={{
+            marginLeft: 200,
+          }}
+        >
+          <Content
+            style={{
+              overflow: "initial",
+              backgroundColor: "white",
+            }}
+          >
             <Outlet />
           </Content>
         </Layout>
@@ -34,27 +43,35 @@ function Root() {
 
 export default Root;
 export const loader = async () => {
-  // const response = await fetch("");
-  // if (!response.ok) {
-  //   throw json({ message: "Could not fetch user" }, { status: 500 });
-  // } else {
-  //   const data = await response.json();
-  //   const user = data.user;
-  //   const token = getAuthToken();
-  //   return { user, token };
-  // }
+  const id = localStorage.getItem("id");
   const token = getAuthToken();
-  if (token) {
-    const user = {
-      user_id: null,
-      username: "kimchi",
-      email: "chinguyen2k1@gmail.com",
-      password: "",
-      image:
-        "https://i.pinimg.com/564x/ae/b5/49/aeb549a5892e4d62e343380285c18619.jpg",
-    };
+  let response;
+  if (token && id) {
+    response = await fetch("http://127.0.0.1:8000/user/" + id, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    });
+    if (!response.ok) {
+      throw json({ message: "Could not fetch user" }, { status: 500 });
+    }
+    const user = await response.json();
     return { user, token };
   } else {
     return null;
   }
+  // if (token) {
+  //   const user = {
+  //     user_id: null,
+  //     username: "kimchi",
+  //     email: "chinguyen2k1@gmail.com",
+  //     password: "",
+  //     image:
+  //       "https://i.pinimg.com/564x/ae/b5/49/aeb549a5892e4d62e343380285c18619.jpg",
+  //   };
+  //   return { user, token };
+  // } else {
+  //   return null;
+  // }
 };

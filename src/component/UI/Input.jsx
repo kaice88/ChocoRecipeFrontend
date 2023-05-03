@@ -5,11 +5,13 @@ function Input(props) {
     <label htmlFor={props.label}>
       <div>
         <input
-          className={styles.input}
+          className={
+            props.error ? `${styles.input} ${styles.error}` : styles.input
+          }
           type={props.type}
           value={props.value}
           placeholder={props.placeholder}
-          name={props.label}
+          name={props.name}
           id={props.label}
         />
         <span className={styles["input-border"]}></span>

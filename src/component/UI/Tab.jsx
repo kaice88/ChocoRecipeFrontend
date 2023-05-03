@@ -8,18 +8,23 @@ function Tab(props) {
       style={{ flexDirection: `${props.flexDirection}` }}
     >
       {props.tab_list.map((tab) => (
-        <NavLink to={`/auth/${tab.route}`}>
-          <h3
-            className={tab.isActive ? styles.active : ""}
-            style={{
-              fontWeight: `${props.weight}`,
-              fontSize: `${props.size}`,
-              height: `${props.height}`,
-            }}
-            key={tab.value}
-          >
-            {tab.value}
-          </h3>
+        <NavLink
+          to={tab.route}
+          key={tab.value}
+          // <h3
+          className={({ isActive }) =>
+            isActive
+              ? `${styles["tab-item"]} ${styles.active}`
+              : styles["tab-item"]
+          }
+          style={{
+            fontWeight: `${props.weight}`,
+            fontSize: `${props.size}`,
+            height: `${props.height}`,
+          }}
+        >
+          {tab.value}
+          {/* </h3> */}
         </NavLink>
       ))}
     </div>
