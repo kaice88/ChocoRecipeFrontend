@@ -1,5 +1,5 @@
 import { useState } from "react";
-import styles from './Slider.module.css'
+import styles from "./Slider.module.css";
 
 const slideStyles = {
   width: "100%",
@@ -45,14 +45,17 @@ const dotStyle = {
   margin: "16px 8px",
   cursor: "pointer",
   fontSize: "8px",
-  color: "#3A9196"
+  color: "#3A9196",
 };
 
-let iconClass = "fa-regular fa-circle fa-default"; 
-let activeIconClass = "fa-solid fa-circle fa-active"; 
+let iconClass = "fa-regular fa-circle fa-default";
+let activeIconClass = "fa-solid fa-circle fa-active";
 const Slider = ({ slides }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [dotStatus, setDotStatus] = useState([true, ...Array(slides.length - 1).fill(false)]);
+  const [dotStatus, setDotStatus] = useState([
+    true,
+    ...Array(slides.length - 1).fill(false),
+  ]);
   // const goToPrevious = () => {
   //   const isFirstSlide = currentIndex === 0;
   //   const newIndex = isFirstSlide ? slides.length - 1 : currentIndex - 1;
@@ -91,12 +94,15 @@ const Slider = ({ slides }) => {
             onClick={() => goToSlide(slideIndex)}
           >
             <span className={styles["icon-border"]}>
-                <i className={`fa ${dotStatus[slideIndex] ? activeIconClass : iconClass}`}></i>
+              <i
+                className={`fa ${
+                  dotStatus[slideIndex] ? activeIconClass : iconClass
+                }`}
+              ></i>
             </span>
           </div>
         ))}
       </div>
-
     </div>
   );
 };

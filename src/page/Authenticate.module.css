@@ -1,0 +1,23 @@
+
+.image {
+    width: 100%;
+}
+
+:global(.ant-layout-content) {
+   background-color: white;
+}
+
+:global(.ant-layout-header) {
+    background-color: white;
+    padding-inline:0
+ }
+ .body {
+    margin: 50px auto auto;
+    padding: 10px 20px;
+    max-width: 80%;
+}
+.content {
+    flex: 50%;
+    margin-top: 20px;
+ 
+}
