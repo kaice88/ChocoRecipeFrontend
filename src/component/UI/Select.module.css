@@ -27,3 +27,8 @@
     box-shadow: 0 0 0 0 #fff !important;
 }
 
+.container{
+    margin-bottom: 20px;
+    text-align: left;
+    border-bottom: 2px solid #e3e3e3;
+}

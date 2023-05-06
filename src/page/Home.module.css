@@ -9,13 +9,16 @@
 }
 
 .search{
+
     position: absolute;
     padding: 30px;
     width: 100%;
     top: 0;
-    left: 50%;
-    transform: translateX(-20%);
+    display: flex;
     z-index: 1;
+    text-align: center;
+    justify-content: center;
+   
 }
 .recipe_list{
     text-align: center;
@@ -37,9 +40,9 @@
     margin: 0 auto;
 }
 
-.select-container{
+/* .select-container{
     margin-bottom: 20px;
     text-align: left;
     padding-left: 12px;
     border-bottom: 2px solid #e3e3e3;
-}
+} */
