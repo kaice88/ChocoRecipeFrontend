@@ -10,6 +10,7 @@ import MyRecipes from "./page/MyRecipes";
 import FavouriteRecipes from "./page/FavouriteRecipes";
 import Authenticate from "./page/Authenticate";
 import RecipeDetail from "./page/RecipeDetail";
+import { action as deleteAction } from "./component/Recipes/Recipe";
 import ChangePassword, {
   action as ChangePasswordAction,
 } from "./page/ChangePassword";
@@ -29,6 +30,7 @@ const router = createBrowserRouter([
           {
             path: "my-recipes",
             element: <MyRecipes></MyRecipes>,
+            action: deleteAction,
           },
           {
             path: "fav-recipes",

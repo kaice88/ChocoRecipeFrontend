@@ -2,7 +2,7 @@ import styles from "./Recipe.module.css";
 import App from "../rating/Rating";
 import Like from "../Like/Like";
 import IconButton from "../UI/IconButton";
-import { Link } from "react-router-dom";
+import { Link, json } from "react-router-dom";
 
 function Recipe(props) {
   return (
@@ -10,10 +10,10 @@ function Recipe(props) {
       <div className={styles.row}>
         <div className={styles["icon-container"]}>
           <div className={styles["icon-button"]}>
-            <IconButton isDelete={false}></IconButton>
+            <IconButton isDelete={false} id={props.name}></IconButton>
           </div>
           <div className={styles["icon-button"]}>
-            <IconButton isDelete={true}></IconButton>
+            <IconButton isDelete={true} id={props.name}></IconButton>
           </div>
         </div>
         <img className={styles.img} src={props.src} alt={props.alt} />
@@ -33,9 +33,7 @@ function Recipe(props) {
             <App rate={props.rate} />
           </div>
           <div className={styles["col-2"]}>
-            <a href="#" className={styles.username}>
-              {props.username}
-            </a>
+            <span className={styles.username}>{props.username}</span>
           </div>
         </div>
       </div>
@@ -44,3 +42,22 @@ function Recipe(props) {
 }
 
 export default Recipe;
+export async function action({ request }) {
+  const method = request.method;
+  const data = await request.formData();
+  const recipeId = data.get("recipeId");
+  // const response = await fetch(""+recipeId, {
+  //   method: request.method,
+  // });
+
+  // if (!response.ok) {
+  //   throw json(
+  //     { message: "Could not delete event." },
+  //     {
+  //       status: 500,
+  //     }
+  //   );
+  // }
+  // return redirect("/events");
+  return { method, recipeId };
+}

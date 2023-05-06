@@ -1,3 +1,4 @@
+import { useActionData } from "react-router-dom";
 import img from "../assets/img_recipe.png";
 import ListRecipes from "../component/Recipes/ListRecipes";
 import SelectSort from "../component/UI/Select";
@@ -53,6 +54,8 @@ const dummy_arr = [
 ];
 
 function MyRecipes() {
+  const data = useActionData();
+  console.log(data);
   return (
     <>
       <SelectSort></SelectSort>
