@@ -1,0 +1,20 @@
+.container{
+    margin: auto;
+    padding-top: 80px;
+    transition: opacity 400ms ease;
+    margin: 57px auto 0;
+    max-width: 760px;
+}
+.container-ingre{
+    border-bottom: 2px solid #e3e3e3;
+    padding: 42px 0;
+}
+
+.container-directions{
+    padding: 42px 0;
+}
+
+.container-introview{
+    border-bottom: 2px solid #e3e3e3;
+    padding-bottom: 60px;
+}

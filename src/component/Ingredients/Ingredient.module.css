@@ -1,0 +1,24 @@
+.line-ingre{
+    display: flex;
+    padding: 8px;
+    align-items: center;    
+}
+.ingredient {
+    display: block;
+    margin-left: 0.5em;
+    font-family: 'Josefin Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 16px;
+    color: #4A4A4A;
+}
+
+.sub-ingre{
+    margin-left: 0.2em; 
+}
+
+.dot-ingre {
+    font-size: 8px;
+    color: #3A9196;
+}

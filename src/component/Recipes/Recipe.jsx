@@ -29,8 +29,11 @@ function Recipe(props) {
           </div>
         </div>
         <div className={`${styles.row} ${styles.rating}`}>
-          <div className={styles["col-1"]}>
-            <App rate={props.rate} />
+
+          <div className={styles['col-1']}>
+            <App rate={props.rate} allowHalf={true} disabled={true} />
+
+    
           </div>
           <div className={styles["col-2"]}>
             <a href="#" className={styles.username}>
