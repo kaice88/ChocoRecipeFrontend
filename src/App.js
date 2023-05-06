@@ -2,6 +2,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Login, { action as LoginAction } from "./page/Login";
 import Signup, { action as SigupAction } from "./page/Signup";
 import Home from "./page/Home";
+import ViewRecipe from "./page/ViewRecipe";
 import Root, { loader as userLoader } from "./page/Root";
 import ErrorPage from "./page/Error";
 import Profile from "./page/Profile";
@@ -14,6 +15,7 @@ import { action as deleteAction } from "./component/Recipes/Recipe";
 import ChangePassword, {
   action as ChangePasswordAction,
 } from "./page/ChangePassword";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -69,6 +71,10 @@ const router = createBrowserRouter([
         action: LogoutAction,
       },
     ],
+  },
+  {
+    path: "viewrecipe",
+    element: <ViewRecipe></ViewRecipe>,
   },
 ]);
 
