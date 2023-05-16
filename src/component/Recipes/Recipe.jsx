@@ -1,5 +1,5 @@
 import styles from "./Recipe.module.css";
-import App from "../rating/Rating";
+import Rating from "../Rating/Rating";
 import Like from "../Like/Like";
 import IconButton from "../UI/IconButton";
 import { Link, json } from "react-router-dom";
@@ -29,11 +29,8 @@ function Recipe(props) {
           </div>
         </div>
         <div className={`${styles.row} ${styles.rating}`}>
-
-          <div className={styles['col-1']}>
-            <App rate={props.rate} allowHalf={true} disabled={true} />
-
-    
+          <div className={styles["col-1"]}>
+            <Rating rate={props.rate} allowHalf={true} disabled={true} />
           </div>
           <div className={styles["col-2"]}>
             <span className={styles.username}>{props.username}</span>

@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useSubmit } from "react-router-dom";
-import { Modal } from "antd";
 import styles from "./IconButton.module.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
+import ModalRecipe from "../Modal/ModalRecipe";
 
 function IconButton(props) {
   const [isDelete, setIsDelete] = useState(props.isDelete);
@@ -52,16 +52,19 @@ function IconButton(props) {
           </span>
         </div>
       </div>
-      <Modal
-        title="Basic Modal"
+      <ModalRecipe
+        isModalOpen={isModalOpen}
+        handleOk={handleOk}
+        handleCancel={handleCancel}
+      ></ModalRecipe>
+      {/* <Modal
+        // title={<h3 className={styles.title}>Create a new recipe</h3>}
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
       >
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-      </Modal>
+        <AddingForm></AddingForm>
+      </Modal> */}
     </>
   );
 }

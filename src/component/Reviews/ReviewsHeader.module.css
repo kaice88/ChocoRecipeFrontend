@@ -1,0 +1,19 @@
+.title-container{
+    display: flex;
+    line-height: 57px;
+}
+.title-review{
+    font-family: 'Josefin Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 24px;
+    color: #232323;
+    padding: 15px 5px;
+}
+.rating-average{
+    line-height: 48px;
+}
+.quantity-review{
+    padding: 0 10px;
+}

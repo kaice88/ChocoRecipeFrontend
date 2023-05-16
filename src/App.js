@@ -10,7 +10,6 @@ import { action as LogoutAction } from "./page/Logout";
 import MyRecipes from "./page/MyRecipes";
 import FavouriteRecipes from "./page/FavouriteRecipes";
 import Authenticate from "./page/Authenticate";
-import RecipeDetail from "./page/RecipeDetail";
 import { action as deleteAction } from "./component/Recipes/Recipe";
 import ChangePassword, {
   action as ChangePasswordAction,
@@ -28,7 +27,7 @@ const router = createBrowserRouter([
         path: "profile",
         element: <Profile></Profile>,
         children: [
-          // { index: true, element: <Profile></Profile> },
+          { index: true, element: <Profile></Profile> },
           {
             path: "my-recipes",
             element: <MyRecipes></MyRecipes>,
@@ -47,7 +46,7 @@ const router = createBrowserRouter([
       },
       {
         path: ":recipeId",
-        element: <RecipeDetail></RecipeDetail>,
+        element: <ViewRecipe></ViewRecipe>,
       },
     ],
   },
@@ -71,10 +70,6 @@ const router = createBrowserRouter([
         action: LogoutAction,
       },
     ],
-  },
-  {
-    path: "viewrecipe",
-    element: <ViewRecipe></ViewRecipe>,
   },
 ]);
 
