@@ -1,4 +1,5 @@
 import { Modal } from "antd";
+import { useActionData } from "react-router-dom";
 import RecipeForm from "../Form/RecipeForm";
 function ModalRecipe(props) {
   return (
@@ -8,7 +9,7 @@ function ModalRecipe(props) {
       onCancel={props.handleCancel}
       width={800}
     >
-      <RecipeForm></RecipeForm>
+      <RecipeForm heading="Create a new recipe"></RecipeForm>
     </Modal>
   );
 }

@@ -1,37 +1,75 @@
-import { Form } from "react-router-dom";
-import Input from "../UI/Input";
+import { Form, useActionData } from "react-router-dom";
+import { Divider } from "antd";
+import { Input } from "antd";
+import INPUT from "../UI/Input";
 import NewImage from "../NewItem/NewItem";
 import styles from "./RecipeForm.module.css";
+import NewIngredients from "../Ingredients/NewIngredients";
+import { useState } from "react";
+const { TextArea } = Input;
 function RecipeForm(props) {
+  const recipe = props.recipe;
+  console.log(recipe);
+  const [ingredients, setIngredients] = useState(1);
+  const AddNewIngredient = () => {
+    setIngredients((prev) => prev + 1);
+  };
+
   return (
-    <Form>
+    <Form name="form">
       <div>
-        <h3>{props.heading}</h3>
+        <h3 className={styles.heading}>{props.heading}</h3>
       </div>
       <div className={styles["container"]}>
         <div className={styles.input}>
-          <Input
+          <INPUT
             label="Title"
             type="text"
             placeholder='Enter a title, like "Smothered Chicken"'
             name="title"
-          ></Input>
+            // value={recipe.title}
+          ></INPUT>
           <div className={styles["time-calories-container"]}>
-            <Input
+            <INPUT
               label="Time (mins)"
               type="text"
               placeholder="Enter time cooking"
               name="time"
-            ></Input>
-            <Input
+              // value={recipe.time}
+            ></INPUT>
+            <INPUT
               label="Calories"
               type="text"
-              placeholder="Enter calcories"
+              placeholder="Enter calories"
               name="calories"
-            ></Input>
+              // value={recipe.calories}
+            ></INPUT>
           </div>
         </div>
+
         <NewImage text="Image"></NewImage>
+      </div>
+      <div>
+        <Divider orientation="left">Ingredients</Divider>
+        {Array.from({ length: ingredients }, (_, index) => (
+          <NewIngredients key={index} name={`'ingredient-${index}`} />
+        ))}
+        <div className={styles["add-row"]} onClick={AddNewIngredient}>
+          + Add ingredient
+        </div>
+      </div>
+      <div>
+        <Divider orientation="left">Ingredients</Divider>
+        <TextArea
+          showCount
+          maxLength={500}
+          style={{
+            height: 120,
+            marginBottom: 24,
+          }}
+          placeholder="can resize"
+          name="direction"
+        />
       </div>
     </Form>
   );
