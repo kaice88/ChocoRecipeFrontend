@@ -1,8 +1,19 @@
-import styles from './Rating.module.css'
-import { Rate } from 'antd';
-const App = (props) => <Rate
-    className={styles.rate}
-    disabled={props.disabled}
-    allowHalf={props.allowHalf} // true: 1/2
-    defaultValue={props.rate} />;
-export default App;
+import { useState } from "react";
+import styles from "./Rating.module.css";
+import { Rate } from "antd";
+
+const Rating = (props) => {
+  const HandlerValue = (value) => {
+    props.HandlerValue(value);
+  };
+  return (
+    <Rate
+      className={styles.rate}
+      disabled={props.disabled}
+      allowHalf={true} // true: 1/2
+      value={props.rate}
+      onChange={HandlerValue}
+    />
+  );
+};
+export default Rating;

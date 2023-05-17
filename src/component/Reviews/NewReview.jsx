@@ -1,9 +1,8 @@
-import { useState } from 'react';
-import styles from './MyReview.module.css'
-import App from '../rating/Rating'
-import Button from '../UI/Button';
-function MyReview(props) {
-
+import { useState } from "react";
+import styles from "./NewReview.module.css";
+import Rating from "../Rating/Rating";
+import Button from "../UI/Button";
+function NewReview(props) {
   const [showComment, setShowComment] = useState(false);
   const [textareaValue, setTextareaValue] = useState(props.myReview);
 
@@ -12,7 +11,7 @@ function MyReview(props) {
   };
   const handleCancelClick = () => {
     setShowComment(false);
-    setTextareaValue('');
+    setTextareaValue("");
   };
   const handleTextareaClick = () => {
     setShowComment(true);
@@ -20,11 +19,11 @@ function MyReview(props) {
 
   return (
     <>
-      <div className={styles['myreview-container']}>
-        <div className={styles['img-container']}>
+      <div className={styles["myreview-container"]}>
+        <div className={styles["img-container"]}>
           <img className={styles.img} src={props.src} alt={props.alt} />
         </div>
-        <div className={styles['content-container']}>
+        <div className={styles["content-container"]}>
           {showComment && (
             <div>
               <a href="#" className={styles.username}>
@@ -32,25 +31,26 @@ function MyReview(props) {
               </a>
 
               <div className={styles.rate}>
-                <App
-                  rate={props.rate}
-                  disabled={false}
-                />
+                <Rating rate={props.rate} disabled={false} />
               </div>
             </div>
           )}
           <textarea
-            className={`${styles.myReview} ${textareaValue ? styles.expanded : ''}`}
+            className={`${styles.myReview} ${
+              textareaValue ? styles.expanded : ""
+            }`}
             placeholder="Write your review or comment here"
             aria-label="Write your review or comment here"
             onClick={handleTextareaClick}
             onInput={handleTextareaInput}
             value={textareaValue}
-          >{props.myReview}</textarea>
+          >
+            {props.myReview}
+          </textarea>
           {showComment && (
             <div className={styles.button}>
-              <Button styles='save' value='Submit'></Button>
-              <Button value='Cancel' onClick={handleCancelClick}></Button>
+              <Button styles="save" value="Submit"></Button>
+              <Button value="Cancel" onClick={handleCancelClick}></Button>
             </div>
           )}
         </div>
@@ -59,4 +59,4 @@ function MyReview(props) {
   );
 }
 
-export default MyReview;
+export default NewReview;

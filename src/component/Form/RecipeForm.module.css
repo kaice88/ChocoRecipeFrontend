@@ -1,0 +1,44 @@
+
+.time-calories-container {
+ display: flex;
+ gap:20px;
+}
+.time-calories-container > div {
+    flex-grow:1;
+   }
+.container {
+    display: flex;
+    gap:50px;
+}
+.input {
+    flex-grow: 1;
+}
+.heading {
+    color: #232323;
+    font-size: 30px;
+    font-weight: 400;
+    margin: 0;
+}
+:global(.ant-divider-horizontal.ant-divider-with-text-left)::after, :global(.ant-divider-horizontal.ant-divider-with-text-left)::before{
+    border-color: #3a9691;
+    border-width: 2px;
+    
+}
+:global(.ant-divider-horizontal.ant-divider-with-text){
+    margin:0;
+}
+
+:global(.ant-divider .ant-divider-inner-text) {
+    display: inline-block;
+    padding: 0 5px;
+    color: black;
+    font-size: 16px;
+    font-family: 'Josefin Sans', sans-serif;
+}
+.add-row {
+    border-bottom: 2px solid #3a9691;
+    width: fit-content;
+    font-size: 16px;
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 500;
+}

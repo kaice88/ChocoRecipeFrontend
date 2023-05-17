@@ -1,16 +1,16 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Login, { action as LoginAction } from "./page/Login";
 import Signup, { action as SigupAction } from "./page/Signup";
-import Home from "./page/Home";
+import Home, { loader as allRecipesLoader } from "./page/Home";
 import ViewRecipe from "./page/ViewRecipe";
 import Root, { loader as userLoader } from "./page/Root";
 import ErrorPage from "./page/Error";
 import Profile from "./page/Profile";
 import { action as LogoutAction } from "./page/Logout";
-import MyRecipes from "./page/MyRecipes";
+import MyRecipes, { loader as myRecipeLoader } from "./page/MyRecipes";
 import FavouriteRecipes from "./page/FavouriteRecipes";
 import Authenticate from "./page/Authenticate";
-import RecipeDetail from "./page/RecipeDetail";
+import { action as deleteAction } from "./component/Recipes/Recipe";
 import ChangePassword, {
   action as ChangePasswordAction,
 } from "./page/ChangePassword";
@@ -22,15 +22,17 @@ const router = createBrowserRouter([
     id: "root",
     loader: userLoader,
     children: [
-      { index: true, element: <Home /> },
+      { index: true, element: <Home />, loader: allRecipesLoader },
       {
         path: "profile",
         element: <Profile></Profile>,
         children: [
-          // { index: true, element: <Profile></Profile> },
+          { index: true, element: <Profile></Profile> },
           {
             path: "my-recipes",
             element: <MyRecipes></MyRecipes>,
+            action: deleteAction,
+            loader: myRecipeLoader,
           },
           {
             path: "fav-recipes",
@@ -45,7 +47,7 @@ const router = createBrowserRouter([
       },
       {
         path: ":recipeId",
-        element: <RecipeDetail></RecipeDetail>,
+        element: <ViewRecipe></ViewRecipe>,
       },
     ],
   },
@@ -69,10 +71,6 @@ const router = createBrowserRouter([
         action: LogoutAction,
       },
     ],
-  },
-  {
-    path: "viewrecipe",
-    element: <ViewRecipe></ViewRecipe>,
   },
 ]);
 
