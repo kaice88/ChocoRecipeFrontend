@@ -2,9 +2,26 @@
 .input {
     display: flex;
     margin: 0 10px;
-    gap:10px
+    gap:10px;
+    position: relative;
 }
 .input > div {
     flex-grow: 1;
   
+}
+.i{
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    font-size: 18px;
+    display: none;
+    cursor: pointer;
+}
+
+.i:active {
+    opacity: 0.5;
+}
+
+.input:hover .i{
+    display: inline-block;
 }
