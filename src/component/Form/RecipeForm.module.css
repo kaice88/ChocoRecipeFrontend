@@ -35,10 +35,15 @@
     font-size: 16px;
     font-family: 'Josefin Sans', sans-serif;
 }
+.container-row{
+    display: flex;
+  justify-content: center;
+}
 .add-row {
     border-bottom: 2px solid #3a9691;
     width: fit-content;
     font-size: 16px;
     font-family: 'Josefin Sans', sans-serif;
     font-weight: 500;
+    cursor: pointer;
 }

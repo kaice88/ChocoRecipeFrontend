@@ -11,3 +11,25 @@
     margin-bottom: 20px;
 }
 
+.show{
+  border: none;
+    background-color: transparent;
+    font-family: 'Josefin Sans';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 14px;
+    color: #3A9691;
+    padding: 0 20px 10px;
+    cursor: pointer;
+}
+
+.show-container{
+  width: 100%;
+}
+
+.show i{
+  padding: 0 10px 10px;
+}
+
+

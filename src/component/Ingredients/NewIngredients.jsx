@@ -1,6 +1,6 @@
 import styles from "./NewIngredients.module.css";
 import Input from "../UI/Input";
-function NewIngredients() {
+function NewIngredients(props) {
   return (
     <div className={styles.input}>
       <Input
@@ -21,6 +21,7 @@ function NewIngredients() {
         placeholder='Like "tbs"'
         name="unit"
       ></Input>
+      <span className={styles.i} onClick={props.iclick}><i class="fa-regular fa-circle-xmark"></i></span>
     </div>
   );
 }

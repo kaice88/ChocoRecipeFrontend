@@ -15,6 +15,10 @@ function RecipeForm(props) {
     setIngredients((prev) => prev + 1);
   };
 
+  const RemoveIngredient = () => {
+    setIngredients((prev) => prev - 1);
+  }
+
   return (
     <Form name="form">
       <div>
@@ -52,10 +56,13 @@ function RecipeForm(props) {
       <div>
         <Divider orientation="left">Ingredients</Divider>
         {Array.from({ length: ingredients }, (_, index) => (
-          <NewIngredients key={index} name={`'ingredient-${index}`} />
+          <NewIngredients key={index} name={`'ingredient-${index}`} iclick={RemoveIngredient} />
         ))}
+        <div className={styles['container-row']}>
+
         <div className={styles["add-row"]} onClick={AddNewIngredient}>
           + Add ingredient
+        </div>
         </div>
       </div>
       <div>
