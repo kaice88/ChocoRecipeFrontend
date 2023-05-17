@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, json, useLoaderData } from "react-router-dom";
 import ListIngredients from "../component/Ingredients/ListIngredients";
 import Directions from "../component/Directions/Directions";
 import styles from "./ViewRecipe.module.css";
@@ -8,55 +8,10 @@ import ListReviews from "../component/Reviews/ListReviews";
 import Rating from "../component/Rating/Rating";
 
 function ViewRecipe(props) {
+  const data = useLoaderData();
+  console.log(data);
   const params = useParams();
-  const ingre_arr = [
-    {
-      quantity: "2",
-      name: "zucchini",
-    },
-    {
-      quantity: "1",
-      name: "onion",
-    },
-    {
-      quantity: "1",
-      unit: "clove",
-      name: "garlic",
-    },
-    {
-      quantity: "2",
-      unit: "cup",
-      name: "pasta sauce",
-    },
-    {
-      quantity: "1/4",
-      unit: "tsp.",
-      name: "pepper",
-    },
-    {
-      quantity: "2",
-      name: "zucchini",
-    },
-    {
-      quantity: "1",
-      name: "onion",
-    },
-    {
-      quantity: "1",
-      unit: "clove",
-      name: "garlic",
-    },
-    {
-      quantity: "2",
-      unit: "cup",
-      name: "pasta sauce",
-    },
-    {
-      quantity: "1/4",
-      unit: "tsp.",
-      name: "pepper",
-    },
-  ];
+
   const review_arr = [
     {
       src: "https://images.pexels.com/photos/1107807/pexels-photo-1107807.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
@@ -94,47 +49,30 @@ function ViewRecipe(props) {
       <div className={styles.container}>
         <div className={styles["container-introview"]}>
           <Introview
-            name="Easy Stuffed Zucchini Boats"
+            name={data.title}
             username="KIMCHI123"
             rate={2.5}
             like="998"
             review="2"
-            unitIngre="11"
-            unitMin="55"
-            unitCalo="450"
-            src="https://images.pexels.com/photos/7144887/pexels-photo-7144887.jpeg?auto=compress&cs=tinysrgb&w=600"
+            unitIngre={data.ingredients.length}
+            unitMin={data.cooking_time}
+            unitCalo={data.calories}
+            src={`http://127.0.0.1:8000${data.image}`}
           ></Introview>
         </div>
         <div className={styles["container-ingre"]}>
-          <ListIngredients ingredient_list={ingre_arr}></ListIngredients>
+          <ListIngredients
+            ingredient_list={data["ingredients"]}
+          ></ListIngredients>
         </div>
         <div className={styles["container-directions"]}>
-          <Directions
-            directions="Stuffed Zucchini Boats are the perfect way to enjoy your fresh summer zucchini!
-Serve this easy dish with a side salad and garlic bread for the perfect family meal!
-Of all of the things that grow in my garden, the herbs and the zucchini have to be my absolute favorites (ok, and the tender baby carrots). I have so many zucchini recipes and this one is near the top of the list!
-Ingredients for Stuffed Zucchini Boats
-Zucchini – You may need only two zucchini if the zucchini is large or 3-4 if they are smaller. Yellow summer squash can also be used in this recipe, you may need to reduce the cooking time by a few minutes.
-This filling can also be added to small bell peppers (pre-cook them a minute or two in the microwave first) or even portobello mushrooms if you’d like.
-Meat Filling – This recipe starts with a zesty meat sauce. I use beef but Italian sausage (or even ground turkey sausage) is great too! Use your favorite marinara sauce and chop up any veggies you love to add to the sauce.
-Optional Additions – Fresh tomatoes, kidney beans, corn, or other fresh vegetables can be added. Try a sprinkle of red pepper flakes for a little heat.
-How to Make Stuffed Zucchini Boats
-Prepare zucchini by scraping out the flesh in the center to create a ‘boat’.
-Make a quick meat sauce with ground beef or sausage, onion, and marinara sauce or pasta sauce.
-Fill and bake the zucchini until tender. Sprinkle with cheese and bake a little bit longer.
-Garnish with fresh herbs if you’d like and serve with crusty bread.
-Tips for Making Great Zucchini Boats
-If you prefer softer zucchini or if using garden zucchini that are thicker or large, this recipe can be cooked longer before adding the cheese.
-The core of the zucchini can be chopped and added to the sauce along with the red pepper or it can be added to soups or chilis if desired.
-If adding the zucchini or other vegetables to the sauce, allow them to cook a little bit before adding the marinara sauce so the sauce is not watery.
-Leftover meat sauce or chili can be used in place of the meat sauce in this recipe."
-          ></Directions>
+          <Directions directions={data.directions}></Directions>
         </div>
         <div>
           <ListReviews
             review="2"
             rateAverage={2.5}
-            src="https://images.pexels.com/photos/1107807/pexels-photo-1107807.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+            src="https://images.pexels.com/photos/7144887/pexels-photo-7144887.jpeg?auto=compress&cs=tinysrgb&w=600"
             username="Quynh Linh"
             disabled={false}
             MyReview=""
@@ -147,3 +85,25 @@ Leftover meat sauce or chili can be used in place of the meat sauce in this reci
 }
 
 export default ViewRecipe;
+export const loader = async () => {
+  // const data = await request.formData();
+  // const authUser = {
+  //   username: data.get("username"),
+  //   password: data.get("password"),
+  // };
+
+  const response = await fetch("http://127.0.0.1:8000/recipes/1");
+  if (response.status === 401) {
+    return response;
+  }
+  if (!response.ok) {
+    throw json({ message: "Could not authenticate user" }, { status: 500 });
+  }
+  // const res = await response.json();
+  // const token = res.access;
+  // const id = res.user_id;
+  // localStorage.setItem("id", id);
+  // localStorage.setItem("token", token);
+
+  return response;
+};

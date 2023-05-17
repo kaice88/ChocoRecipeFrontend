@@ -2,7 +2,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Login, { action as LoginAction } from "./page/Login";
 import Signup, { action as SigupAction } from "./page/Signup";
 import Home from "./page/Home";
-import ViewRecipe from "./page/ViewRecipe";
+import ViewRecipe, { loader as RecipeLoader } from "./page/ViewRecipe";
 import Root, { loader as userLoader } from "./page/Root";
 import ErrorPage from "./page/Error";
 import Profile from "./page/Profile";
@@ -47,6 +47,7 @@ const router = createBrowserRouter([
       {
         path: ":recipeId",
         element: <ViewRecipe></ViewRecipe>,
+        loader: RecipeLoader,
       },
     ],
   },

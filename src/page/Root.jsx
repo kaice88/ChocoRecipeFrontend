@@ -47,7 +47,7 @@ export const loader = async () => {
   const token = getAuthToken();
   let response;
   if (token && id) {
-    response = await fetch("http://127.0.0.1:8000/user/" + id, {
+    response = await fetch("http://127.0.0.1:8000/users/" + id, {
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + token,
