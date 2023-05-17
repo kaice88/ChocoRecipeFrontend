@@ -46,7 +46,21 @@ export async function action({ request }) {
   const method = request.method;
   const data = await request.formData();
   const recipeId = data.get("recipeId");
-  // const response = await fetch(""+recipeId, {
+  const initialState = {
+    id: recipeId,
+    user: "kimchi",
+    title: "null",
+    direction: "null",
+    calories: "null",
+    like: "null",
+    time: "null",
+    last_edited: "null",
+    image: "null",
+  };
+  // if (method === "POST") {
+  //   return initialState;
+  // }
+  // const response = await fetch("" + recipeId, {
   //   method: request.method,
   // });
 

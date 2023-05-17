@@ -1,13 +1,15 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Login, { action as LoginAction } from "./page/Login";
 import Signup, { action as SigupAction } from "./page/Signup";
-import Home from "./page/Home";
+
+import Home, { loader as allRecipesLoader } from "./page/Home";
 import ViewRecipe, { loader as RecipeLoader } from "./page/ViewRecipe";
+
 import Root, { loader as userLoader } from "./page/Root";
 import ErrorPage from "./page/Error";
 import Profile from "./page/Profile";
 import { action as LogoutAction } from "./page/Logout";
-import MyRecipes from "./page/MyRecipes";
+import MyRecipes, { loader as myRecipeLoader } from "./page/MyRecipes";
 import FavouriteRecipes from "./page/FavouriteRecipes";
 import Authenticate from "./page/Authenticate";
 import { action as deleteAction } from "./component/Recipes/Recipe";
@@ -22,7 +24,7 @@ const router = createBrowserRouter([
     id: "root",
     loader: userLoader,
     children: [
-      { index: true, element: <Home /> },
+      { index: true, element: <Home />, loader: allRecipesLoader },
       {
         path: "profile",
         element: <Profile></Profile>,
@@ -32,6 +34,7 @@ const router = createBrowserRouter([
             path: "my-recipes",
             element: <MyRecipes></MyRecipes>,
             action: deleteAction,
+            loader: myRecipeLoader,
           },
           {
             path: "fav-recipes",

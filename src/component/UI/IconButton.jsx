@@ -5,7 +5,7 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import ModalRecipe from "../Modal/ModalRecipe";
 
 function IconButton(props) {
-  const [isDelete, setIsDelete] = useState(props.isDelete);
+  const isDelete = props.isDelete;
   const submit = useSubmit();
   let formData = new FormData();
   formData.append("recipeId", props.id);
@@ -16,20 +16,20 @@ function IconButton(props) {
   }
   const deleteHandler = () => {
     const proceed = window.confirm("Are you sure?");
-
     if (proceed) {
       submit(formData, { method: "delete" });
     }
   };
+  const editHandler = () => {};
 
   const handleClick = () => {
     if (isDelete) {
-      // mở modal delete
       console.log("Delete clicked");
       deleteHandler();
     } else {
       // mở modal edit
       console.log("Edit clicked");
+      editHandler();
       showModal();
     }
   };
@@ -57,14 +57,6 @@ function IconButton(props) {
         handleOk={handleOk}
         handleCancel={handleCancel}
       ></ModalRecipe>
-      {/* <Modal
-        // title={<h3 className={styles.title}>Create a new recipe</h3>}
-        open={isModalOpen}
-        onOk={handleOk}
-        onCancel={handleCancel}
-      >
-        <AddingForm></AddingForm>
-      </Modal> */}
     </>
   );
 }

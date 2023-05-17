@@ -1,7 +1,7 @@
 import { Form, useNavigate, useActionData } from "react-router-dom";
 import Button from "../component/UI/Button";
 import Input from "../component/UI/Input";
-// import { getAuthToken } from "../utils/auth";
+import { getAuthToken } from "../utils/auth";
 import styles from "./ChangePassword.module.css";
 function ChangePassword() {
   const data = useActionData();
@@ -62,5 +62,12 @@ export const action = async ({ request, params }) => {
   //   },
   //   body: JSON.stringify(userPassword)
   // })
+
+  // if (response.status === 401) {
+  //   return response;
+  // }
+  // if (!response.ok) {
+  //   throw json({ message: "Could not change password" }, { status: 500 });
+  // }
   return userPassword;
 };

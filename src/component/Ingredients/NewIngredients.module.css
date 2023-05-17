@@ -1,0 +1,10 @@
+
+.input {
+    display: flex;
+    margin: 0 10px;
+    gap:10px
+}
+.input > div {
+    flex-grow: 1;
+  
+}
