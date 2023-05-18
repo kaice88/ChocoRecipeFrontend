@@ -13,37 +13,64 @@ function ChangePassword() {
   const data = useActionData();
   const navigate = useNavigate();
   console.log(data);
-  // function cancelHandler() {
-  //   navigate("../..");
-  // }
+  function cancelHandler() {
+    navigate("../..");
+  }
   return (
     <div className={styles.container}>
       <Form method="post">
         <Input
+          error={data && data.current ? `${data.current}` : null}
           name="current"
           label="Current password"
           type="password"
           placeholder="Type your current password"
         ></Input>
+        {data && data.current && (
+          <h3 className={styles.error}>{data.current}</h3>
+        )}
         <Input
+          error={
+            data && data.password1
+              ? `${data.password1}`
+              : data && data.password
+              ? `${data.password}`
+              : null
+          }
           name="password1"
           label="New password"
           type="password"
           placeholder="Type your new password"
         ></Input>
+        {data && data.password1 && (
+          <h3 className={styles.error}>{data.password1}</h3>
+        )}
         <Input
+          error={
+            data && data.password2
+              ? `${data.password2}`
+              : data && data.password
+              ? `${data.password}`
+              : null
+          }
           name="password2"
           label="Confirm password"
           type="password"
           placeholder="Confirm your new password"
         ></Input>
+        {data && data.password2 && (
+          <h3 className={styles.error}>{data.password2}</h3>
+        )}
+        {data && data.password && (
+          <h3 className={styles.error}>{data.password}</h3>
+        )}
         <div className={styles.button}>
           <span>
             <Button type="submit" value="Save" styles="save"></Button>
           </span>
-          {/* <span>
+          <span>
             <Button value="Cancel" onClick={cancelHandler}></Button>
-          </span> */}
+          </span>
         </div>
       </Form>
     </div>
@@ -73,13 +100,16 @@ export const action = async ({ request, params }) => {
     }
   );
 
-  const t = await response.json();
+  // const t = await response.json();
   if (response.status === 400) {
-    return { t, userPassword };
+    return response;
   }
   if (!response.ok) {
     throw json({ message: "Could not change password" }, { status: 500 });
   }
-  return redirect("/");
-  // return userPassword;
 };
+// data.append("current", "");
+// data.append("password1", "");
+// data.append("password2", "");
+// return redirect("/profile/change-pwd");
+// return userPassword;

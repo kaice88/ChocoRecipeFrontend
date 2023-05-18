@@ -61,7 +61,7 @@ function Sidebar() {
         style={{
           width: "100%",
         }}
-        defaultSelectedKeys={["1"]}
+        defaultSelectedKeys={["3"]}
         defaultOpenKeys={["sub1"]}
         items={items}
         onClick={() => {
@@ -71,7 +71,7 @@ function Sidebar() {
       {data && (
         <div className={styles.logout}>
           <Form action="/auth/logout" method="post">
-            <Button value="Log out"></Button>
+            <Button type="submit" value="Log out"></Button>
           </Form>
         </div>
       )}

@@ -26,20 +26,43 @@ function ListRecipes(props) {
     setVisibleRows((prevVisibleRows) => prevVisibleRows + 20); // Tăng số hàng đang hiển thị lên 5
   };
   const visibleRecipes = props.recipe_list.slice(0, visibleRows); // Lấy danh sách hàng hiển thị
-  const handleFormSubmit = async (formData) => {
+  const handleFormSubmit = async (recipe, ingredients) => {
+    const formData = new FormData();
+    for (let key in recipe) {
+      if (key === "ingredients") {
+      }
+      formData.append(key, recipe[key]);
+    }
     setIsModalOpen(false);
+    console.log(recipe);
     const response = await fetch(`http://127.0.0.1:8000/recipes/`, {
       method: "POST",
       body: formData,
       headers: {
-        "Content-Type": "multipart/form-data",
         Authorization: "Bearer " + token,
       },
     });
+
     if (!response.ok) {
+      console.log(response.json());
       throw json({ message: "Could not load data" }, { status: 500 });
     }
-    // console.log(formData);
+    const response2 = await fetch(
+      `http://127.0.0.1:8000/recipes/ingredients/`,
+      {
+        method: "POST",
+        body: JSON.stringify(ingredients),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
+      }
+    );
+    if (!response2.ok) {
+      console.log(response2.json());
+      throw json({ message: "Could not load data" }, { status: 500 });
+    }
+    console.log(formData);
   };
   return (
     <div className={styles["list-recipe"]}>

@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import Button from "../UI/Button";
 import styles from "./InfoHeader.module.css";
 import Tab from "../UI/Tab";
+import { userAction } from "../../store/user-slice";
 
 import { Link, json } from "react-router-dom";
 const tab_list = [
@@ -13,16 +14,17 @@ const tab_list = [
 ];
 function InfoHeader() {
   const [selectedImage, setSelectedImage] = useState(null);
-
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const inputRef = useRef(null);
   const handleImageUpload = async (event) => {
     const file = event.target.files[0];
-    setSelectedImage(file);
-    if (selectedImage) {
-      console.log(selectedImage);
+    console.log(file);
+    // setSelectedImage(file);
+    if (file) {
+      console.log(file);
       const formData = new FormData();
-      formData.append("image", selectedImage);
+      formData.append("image", file);
       formData.append("username", user.username);
       formData.append("email", user.email);
       const response = await fetch(`http://127.0.0.1:8000/users/${user.id}`, {
@@ -32,7 +34,7 @@ function InfoHeader() {
       if (!response.ok) {
         throw json({ message: "Could not load data" }, { status: 500 });
       }
-      // dispatch(userAction.updateUser());
+      dispatch(userAction.updateImage(`/images/user/${file.name}`));
     }
   };
 

@@ -13,7 +13,7 @@ function ModalRecipe(props) {
     >
       <RecipeForm
         handleFormSubmit={props.handleFormSubmit}
-        heading="Create a new recipe"
+        heading="Edit recipe"
       ></RecipeForm>
     </Modal>
   );

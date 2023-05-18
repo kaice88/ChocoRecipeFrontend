@@ -63,15 +63,23 @@ function RecipeForm(props) {
         }
       }
     }
-    return transformedObject;
+    const recipeObj = {
+      user_id: transformedObject.user_id,
+      title: transformedObject.title,
+      calories: transformedObject.calories,
+      cooking_time: transformedObject.cooking_time,
+      directions: transformedObject.directions,
+      image: transformedObject.image,
+    };
+    const ingredientsObj = transformedObject["ingredients"];
+    return { recipeObj, ingredientsObj };
   };
+
   const convertObjectToFormData = (object) => {
     const formData = new FormData();
-
     for (let key in object) {
       formData.append(key, object[key]);
     }
-
     return formData;
   };
   const handleSubmit = async (event) => {
@@ -80,13 +88,14 @@ function RecipeForm(props) {
     const formData = new FormData(event.target);
 
     const formObject = formDataToObject(formData);
-
-    const form = convertObjectToFormData(transformData(formObject));
-    //  props.handleFormSubmit(formDataToObject(form));
-    // console.log(formDataToObject(form));
-    console.log(form);
+    const { recipeObj, ingredientsObj } = transformData(formObject);
+    const form = convertObjectToFormData(recipeObj);
+    props.handleFormSubmit(recipeObj, ingredientsObj);
+    console.log(recipeObj, ingredientsObj);
+    // // console.log(form);
   };
   const inputRef = useRef(null);
+
   const handleImageUpload = async (event) => {
     const file = event.target.files[0];
     setSelectedImage(file);

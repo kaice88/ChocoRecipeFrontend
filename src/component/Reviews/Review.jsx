@@ -2,34 +2,84 @@ import { useState } from "react";
 import styles from "./Review.module.css";
 import Rating from "../Rating/Rating";
 import Button from "../UI/Button";
+import { useHistory } from "react-router-dom";
+import { json, redirect } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { getAuthToken } from "../../utils/auth";
 function Review(props) {
   const [showButton, setShowButton] = useState(false);
+  const [render, setRender] = useState(false);
   const [textareaValue, setTextareaValue] = useState(props.content);
+  const [rating, setRating] = useState(props.rate);
+  const user = useSelector((state) => state.user);
+
+  const token = getAuthToken();
   const handleEditClick = () => {
     setShowButton(true);
-    setTextareaValue(false);
   };
   const handleCancelClick = () => {
     setShowButton(false);
     setTextareaValue(props.content);
   };
-  const handleSubmitClick = () => {
-    // TODO: Gửi dữ liệu cập nhật lên server và cập nhật lại hiển thị
+  const HandlerValue = (value) => {
+    setRating(value);
+  };
+  const handleSubmitClick = async () => {
     setShowButton(false);
+    const review = {
+      content: textareaValue,
+      user_id: user.id,
+      recipe: props.recipe_id,
+      rating: rating,
+    };
+    console.log(review);
+    window.location.reload();
+    const response = await fetch(
+      `http://127.0.0.1:8000/reviews/${props.recipe_id}`,
+      {
+        method: "PUT",
+        headers: {
+          "content-type": "application/json",
+          Authorization: "Bearer " + token,
+        },
+        body: JSON.stringify(review),
+      }
+    );
+
+    if (!response.ok) {
+      console.log(response.body);
+      throw json({ message: "Could not load data" }, { status: 500 });
+    }
   };
 
-  const handleDeleteClick = () => {
+  const handleDeleteClick = async () => {
     const confirmed = window.confirm(
       "Are you sure you want to delete this comment?"
     );
     if (confirmed) {
-      // TODO: Gửi yêu cầu xóa bình luận lên server
+      const response = await fetch(
+        `http://127.0.0.1:8000/reviews/${props.recipe_id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "content-type": "application/json",
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
+      if (!response.ok) {
+        console.log(response.body);
+        throw json({ message: "Could not load data" }, { status: 500 });
+      }
+      window.location.reload();
     }
+
+    // return redirect(`/${props.recipe_id}`);
   };
   const handleTextareaInput = (event) => {
     setTextareaValue(event.target.value);
   };
-  const isUsername = props.username === "Quynh Linh";
+  const isUsername = props.username === user.username;
   return (
     <div className={styles["review-container"]}>
       <div className={styles["img-container"]}>
@@ -46,7 +96,11 @@ function Review(props) {
         </div>
         <div className={styles.rate}>
           {showButton ? (
-            <Rating rate={props.rate} disabled={false} />
+            <Rating
+              rate={rating}
+              disabled={false}
+              HandlerValue={HandlerValue}
+            />
           ) : (
             <Rating rate={props.rate} disabled={true} />
           )}
