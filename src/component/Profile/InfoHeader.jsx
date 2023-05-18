@@ -43,16 +43,39 @@ function InfoHeader() {
   const handleDivClick = () => {
     inputRef.current.click();
   };
+
+  const [editing, setEditing] = useState(false);
+  const [username, setUsername] = useState(user.username);
+  const [editingSuccess, setEditingSuccess] = useState(false);
+
+  const handleUsernameChange = (event) => {
+    setUsername(event.target.value);
+  };
+
+  const handleUsernameClick = () => {
+    setEditing(true);
+  };
+
+  const handleUsernameBlur = () => {
+    setEditingSuccess(true);
+    console.log(username);
+    setTimeout(() => {
+      setEditingSuccess(false);
+    }, 1500);
+    setEditing(false);
+  };
+  
   return (
     <div className={styles.container}>
       <div className={styles.profile}>
         <section className={styles["profile-image"]}>
-          <div onClick={handleDivClick}>
+          <div className={styles.ava} onClick={handleDivClick}>
             <Avatar
               size={100}
               src={user.image}
               className={styles.input}
             ></Avatar>
+            <span className={styles.camera}><i class="fa-solid fa-camera"></i></span>
             <input
               ref={inputRef}
               type="file"
@@ -68,8 +91,30 @@ function InfoHeader() {
         </section>
         <section className={styles["profile-text"]}>
           <div>
-            <h2 className={styles.name}>{user.username}</h2>
+            {editing ? (
+              <input
+                type="text"
+                className={styles.nameInput}
+                value={username}
+                onChange={handleUsernameChange}
+                onBlur={handleUsernameBlur}
+                autoFocus
+              />
+            ) : (
+              <div className={styles['edit-container']}>
+                <h2 className={styles.name} onClick={handleUsernameClick}>
+                  {username}
+                </h2>
+                {editingSuccess && <span className={styles.successIcon}><i class="fa-solid fa-circle-check"></i></span>}
+                <span className={styles.edit}>
+                  <i class="fa-solid fa-pen"></i>
+                </span>
+              </div>
+            )}
           </div>
+          {/* <div>
+            <h2 className={styles.name}>{user.username}</h2>
+          </div> */}
           <div>
             <h2 className={styles.email}>{user.email}</h2>
           </div>
