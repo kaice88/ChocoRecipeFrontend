@@ -13,6 +13,11 @@ function Like(props) {
 
   const handleClick = () => {
     setIsLiked(!isLiked);
+    if (!isLiked) {
+      console.log("like");
+    } else {
+      console.log("unlike");
+    }
   };
 
   return (

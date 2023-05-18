@@ -9,17 +9,50 @@ section {
 .profile {
     display: flex;
 }
-h2 {
-   
-    font-family: 'Josefin Sans', sans-serif;
-}
-.name {
+
+.name, .nameInput {
     margin-top: 20px;
     margin-bottom: 0px;
     color: #232323;
     font-size: 30px;
     font-weight: 400;
+    font-family: 'Josefin Sans', sans-serif;
 }
+.nameInput{
+    border-bottom: 0.5px solid #000;
+    border-top: none;
+    border-left:none;
+    border-right: none;
+
+}
+.edit-container{
+    display: flex;
+    align-items: center;
+}
+
+.edit-container:hover .edit{
+    display: inline;
+    color: #3A9691;
+}
+
+.edit-container:hover .name{
+    color:#3A9691;
+}
+
+.edit{
+    font-size: 10px;
+    padding-top: 20px;
+    padding-left: 7px;
+    display: none;
+}
+
+.successIcon{
+    font-size: 10px;
+    color:#3A9691 ;
+    padding-top: 20px;
+    padding-left: 7px;
+}
+  
 .email {
     margin-top: 10px;
     color: #707070;
@@ -33,4 +66,24 @@ h2 {
 }
 .profile-text {
     margin-left: 10px;
+}
+.ava{
+    position: relative;
+}
+.camera{
+    color: rgba(255, 255, 255, 0.9);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%)
+                translateY(-50%);
+    font-size: 20px;
+    display: none;
+}
+.ava:hover .camera{
+    display: inline-block;
+}
+
+.ava:hover .input{
+    opacity: 0.9;
 }
