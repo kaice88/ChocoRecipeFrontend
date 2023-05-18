@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import Recipe from "./Recipe";
 import styles from "./ListRecipes.module.css";
 import NewRecipe from "../NewItem/NewItem";
@@ -31,20 +32,22 @@ function ListRecipes(props) {
           <NewRecipe text="New recipe"></NewRecipe>
         </div>
       )}
-      {visibleRecipes.map((item, index) => (
-        <Recipe
-          className={styles.recipe}
-          key={index}
-          src={item.src}
-          alt={item.alt}
-          name={item.name}
-          test={item.test}
-          like={item.like}
-          rate={item.rate}
-          username={item.username}
-          isLiked={item.isLiked}
-          // handleLikeClick={() => handleLikeClick(index)}
-        ></Recipe>
+
+      {props.recipe_list.map((item, index) => (
+        <Link to={`/${item.id}`} key={index}>
+          <Recipe
+            className={styles.recipe}
+            src={`http://127.0.0.1:8000${item.image}`}
+            alt={item.alt}
+            name={item.title}
+            like="15k"
+            rate={item.average_rating}
+            username={item.author}
+            isLiked={false}
+            // handleLikeClick={() => handleLikeClick(index)}
+          ></Recipe>
+        </Link>
+
       ))}
       {visibleRows < props.recipe_list.length && ( // Kiểm tra xem còn hàng nào để hiển thị
       <div className= {styles['show-container']}>

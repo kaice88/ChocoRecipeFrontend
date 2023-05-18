@@ -5,10 +5,13 @@ import Search from "../component/UI/Search";
 import styles from "./Home.module.css";
 import Slider from "../component/Slider/Slider";
 import SelectSort from "../component/UI/Select";
+import { Spin } from "antd";
+import { useState } from "react";
 
 function Home(props) {
   const data = useLoaderData();
-
+  const [recipes, setRecipes] = useState(data);
+  const [isLoading, setIsLoading] = useState(false);
   const slides = [
     {
       url: "https://images.pexels.com/photos/3743169/pexels-photo-3743169.jpeg?auto=compress&cs=tinysrgb&w=1600",
@@ -20,7 +23,30 @@ function Home(props) {
       url: "https://images.pexels.com/photos/5490968/pexels-photo-5490968.jpeg?auto=compress&cs=tinysrgb&w=1600",
     },
   ];
-
+  const SearchHandler = async (keyword) => {
+    setIsLoading(true);
+    const response = await fetch(
+      "http://127.0.0.1:8000/recipes/?keyword=" + keyword
+    );
+    if (!response.ok) {
+      throw json({ message: "Could not load data" }, { status: 500 });
+    }
+    const searchData = await response.json();
+    setRecipes(searchData);
+    setIsLoading(false);
+  };
+  const SortHandler = async (sort_by) => {
+    setIsLoading(true);
+    const response = await fetch(
+      "http://127.0.0.1:8000/recipes/?sort_by=" + sort_by
+    );
+    if (!response.ok) {
+      throw json({ message: "Could not load data" }, { status: 500 });
+    }
+    const searchData = await response.json();
+    setRecipes(searchData);
+    setIsLoading(false);
+  };
   return (
     <>
       <div className={styles.container}>
@@ -29,14 +55,22 @@ function Home(props) {
             <Slider slides={slides}></Slider>
           </div>
           <div className={styles.search}>
-            <Search type="text" placeholder="Search recipes"></Search>
+            <Search
+              type="text"
+              placeholder="Search recipes"
+              onEnter={SearchHandler}
+            ></Search>
           </div>
         </div>
         <div className={styles.recipe_list}>
           {/* <div className={styles["select-container"]}> */}
-          <SelectSort></SelectSort>
+          <SelectSort onSelect={SortHandler}></SelectSort>
           {/* </div> */}
-          <ListRecipes recipe_list={data}></ListRecipes>
+          {isLoading ? (
+            <Spin></Spin>
+          ) : (
+            <ListRecipes recipe_list={recipes}></ListRecipes>
+          )}
         </div>
       </div>
     </>
@@ -45,496 +79,15 @@ function Home(props) {
 
 export default Home;
 export const loader = async () => {
-  // const response = await fetch("http://127.0.0.1:8000/thayvaoday");
-  // if (response.status === 401) {
-  //   return response;
-  // }
-  // if (!response.ok) {
-  //   throw json({ message: "Could not load data" }, { status: 500 });
-  // }
-  // return response;
 
-  const dummy_arr = [
-    {
-      src: img,
-      name: "Fluffy Japanese Soufflé Pancakes",
-      like: "15k",
-      username: "kimchi123",
-      rate: "2.5",
-      isLiked: true,
-    },
-    {
-      src: img,
-      name: "Pumpkin Cake",
-      like: "15k",
-      username: "kimchi123",
-      rate: "5",
-      isLiked: false,
-    },
-    {
-      src: img,
-      name: "Fluffy Japanese Soufflé Pancakes",
-      like: "15k",
-      username: "kimchi123",
-      rate: "2.5",
-      isLiked: false,
-    },
-    {
-      src: img,
-      name: "Fluffy Japanese Soufflé Pancakes",
-      like: "15k",
-      username: "kimchi123",
-      rate: "2.5",
-      isLiked: false,
-    },
-    {
-      src: img,
-      name: "Fluffy Japanese Soufflé Pancakes",
-      like: "15k",
-      username: "kimchi123",
-      rate: "2.5",
-      isLiked: false,
-    },
-    {
-      src: img,
-      name: "Fluffy Japanese Soufflé Pancakes",
-      like: "15k",
-      username: "kimchi123",
-      rate: "2.5",
-      isLiked: true,
-    },
-    {
-      src: img,
-      name: "Fluffy Japanese Soufflé Pancakes",
-      like: "15k",
-      username: "kimchi123",
-      rate: "2.5",
-      isLiked: true,
-    },
-    {
-      src: img,
-      name: "Pumpkin Cake",
-      like: "15k",
-      username: "kimchi123",
-      rate: "5",
-      isLiked: false,
-    },
-    {
-      src: img,
-      name: "Fluffy Japanese Soufflé Pancakes",
-      like: "15k",
-      username: "kimchi123",
-      rate: "2.5",
-      isLiked: false,
-    },
-    {
-      src: img,
-      name: "Fluffy Japanese Soufflé Pancakes",
-      like: "15k",
-      username: "kimchi123",
-      rate: "2.5",
-      isLiked: false,
-    },
-    {
-      src: img,
-      name: "Fluffy Japanese Soufflé Pancakes",
-      like: "15k",
-      username: "kimchi123",
-      rate: "2.5",
-      isLiked: false,
-    },
-    {
-      src: img,
-      name: "Fluffy Japanese Soufflé Pancakes",
-      like: "15k",
-      username: "kimchi123",
-      rate: "2.5",
-      isLiked: true,
-    },
-    {
-      src: img,
-      name: "Fluffy Japanese Soufflé Pancakes",
-      like: "15k",
-      username: "kimchi123",
-      rate: "2.5",
-      isLiked: true,
-    },
-    {
-      src: img,
-      name: "Pumpkin Cake",
-      like: "15k",
-      username: "kimchi123",
-      rate: "5",
-      isLiked: false,
-    },
-    {
-      src: img,
-      name: "Fluffy Japanese Soufflé Pancakes",
-      like: "15k",
-      username: "kimchi123",
-      rate: "2.5",
-      isLiked: false,
-    },
-    {
-      src: img,
-      name: "Fluffy Japanese Soufflé Pancakes",
-      like: "15k",
-      username: "kimchi123",
-      rate: "2.5",
-      isLiked: false,
-    },
-    {
-      src: img,
-      name: "Fluffy Japanese Soufflé Pancakes",
-      like: "15k",
-      username: "kimchi123",
-      rate: "2.5",
-      isLiked: false,
-    },
-    {
-      src: img,
-      name: "Fluffy Japanese Soufflé Pancakes",
-      like: "15k",
-      username: "kimchi123",
-      rate: "2.5",
-      isLiked: true,
-    },
-    {
-      src: img,
-      name: "Fluffy Japanese Soufflé Pancakes",
-      like: "15k",
-      username: "kimchi123",
-      rate: "2.5",
-      isLiked: true,
-    },
-    {
-      src: img,
-      name: "Pumpkin Cake",
-      like: "15k",
-      username: "kimchi123",
-      rate: "5",
-      isLiked: false,
-    },
-    {
-      src: img,
-      name: "Fluffy Japanese Soufflé Pancakes",
-      like: "15k",
-      username: "kimchi123",
-      rate: "2.5",
-      isLiked: false,
-    },
-    {
-      src: img,
-      name: "Fluffy Japanese Soufflé Pancakes",
-      like: "15k",
-      username: "kimchi123",
-      rate: "2.5",
-      isLiked: false,
-    },
-    {
-      src: img,
-      name: "Fluffy Japanese Soufflé Pancakes",
-      like: "15k",
-      username: "kimchi123",
-      rate: "2.5",
-      isLiked: false,
-    },
-    {
-      src: img,
-      name: "Fluffy Japanese Soufflé Pancakes",
-      like: "15k",
-      username: "kimchi123",
-      rate: "2.5",
-      isLiked: true,
-    },
-    {
-      src: img,
-      name: "Fluffy Japanese Soufflé Pancakes",
-      like: "15k",
-      username: "kimchi123",
-      rate: "2.5",
-      isLiked: true,
-    },
-    {
-      src: img,
-      name: "Pumpkin Cake",
-      like: "15k",
-      username: "kimchi123",
-      rate: "5",
-      isLiked: false,
-    },
-    {
-      src: img,
-      name: "Fluffy Japanese Soufflé Pancakes",
-      like: "15k",
-      username: "kimchi123",
-      rate: "2.5",
-      isLiked: false,
-    },
-    {
-      src: img,
-      name: "Fluffy Japanese Soufflé Pancakes",
-      like: "15k",
-      username: "kimchi123",
-      rate: "2.5",
-      isLiked: false,
-    },
-    {
-      src: img,
-      name: "Fluffy Japanese Soufflé Pancakes",
-      like: "15k",
-      username: "kimchi123",
-      rate: "2.5",
-      isLiked: false,
-    },
-    {
-      src: img,
-      name: "Fluffy Japanese Soufflé Pancakes",
-      like: "15k",
-      username: "kimchi123",
-      rate: "2.5",
-      isLiked: true,
-    },
-    {
-      src: img,
-      name: "Fluffy Japanese Soufflé Pancakes",
-      like: "15k",
-      username: "kimchi123",
-      rate: "2.5",
-      isLiked: true,
-    },
-    {
-      src: img,
-      name: "Pumpkin Cake",
-      like: "15k",
-      username: "kimchi123",
-      rate: "5",
-      isLiked: false,
-    },
-    {
-      src: img,
-      name: "Fluffy Japanese Soufflé Pancakes",
-      like: "15k",
-      username: "kimchi123",
-      rate: "2.5",
-      isLiked: false,
-    },
-    {
-      src: img,
-      name: "Fluffy Japanese Soufflé Pancakes",
-      like: "15k",
-      username: "kimchi123",
-      rate: "2.5",
-      isLiked: false,
-    },
-    {
-      src: img,
-      name: "Fluffy Japanese Soufflé Pancakes",
-      like: "15k",
-      username: "kimchi123",
-      rate: "2.5",
-      isLiked: false,
-    },
-    {
-      src: img,
-      name: "Fluffy Japanese Soufflé Pancakes",
-      like: "15k",
-      username: "kimchi123",
-      rate: "2.5",
-      isLiked: true,
-    },
-    {
-      src: img,
-      name: "Fluffy Japanese Soufflé Pancakes",
-      like: "15k",
-      username: "kimchi123",
-      rate: "2.5",
-      isLiked: true,
-    },
-    {
-      src: img,
-      name: "Pumpkin Cake",
-      like: "15k",
-      username: "kimchi123",
-      rate: "5",
-      isLiked: false,
-    },
-    {
-      src: img,
-      name: "Fluffy Japanese Soufflé Pancakes",
-      like: "15k",
-      username: "kimchi123",
-      rate: "2.5",
-      isLiked: false,
-    },
-    {
-      src: img,
-      name: "Fluffy Japanese Soufflé Pancakes",
-      like: "15k",
-      username: "kimchi123",
-      rate: "2.5",
-      isLiked: false,
-    },
-    {
-      src: img,
-      name: "Fluffy Japanese Soufflé Pancakes",
-      like: "15k",
-      username: "kimchi123",
-      rate: "2.5",
-      isLiked: false,
-    },
-    {
-      src: img,
-      name: "Fluffy Japanese Soufflé Pancakes",
-      like: "15k",
-      username: "kimchi123",
-      rate: "2.5",
-      isLiked: true,
-    },
-    {
-      src: img,
-      name: "Fluffy Japanese Soufflé Pancakes",
-      like: "15k",
-      username: "kimchi123",
-      rate: "2.5",
-      isLiked: true,
-    },
-    {
-      src: img,
-      name: "Pumpkin Cake",
-      like: "15k",
-      username: "kimchi123",
-      rate: "5",
-      isLiked: false,
-    },
-    {
-      src: img,
-      name: "Fluffy Japanese Soufflé Pancakes",
-      like: "15k",
-      username: "kimchi123",
-      rate: "2.5",
-      isLiked: false,
-    },
-    {
-      src: img,
-      name: "Fluffy Japanese Soufflé Pancakes",
-      like: "15k",
-      username: "kimchi123",
-      rate: "2.5",
-      isLiked: false,
-    },
-    {
-      src: img,
-      name: "Fluffy Japanese Soufflé Pancakes",
-      like: "15k",
-      username: "kimchi123",
-      rate: "2.5",
-      isLiked: false,
-    },
-    {
-      src: img,
-      name: "Fluffy Japanese Soufflé Pancakes",
-      like: "15k",
-      username: "kimchi123",
-      rate: "2.5",
-      isLiked: true,
-    },
-    {
-      src: img,
-      name: "Fluffy Japanese Soufflé Pancakes",
-      like: "15k",
-      username: "kimchi123",
-      rate: "2.5",
-      isLiked: true,
-    },
-    {
-      src: img,
-      name: "Pumpkin Cake",
-      like: "15k",
-      username: "kimchi123",
-      rate: "5",
-      isLiked: false,
-    },
-    {
-      src: img,
-      name: "Fluffy Japanese Soufflé Pancakes",
-      like: "15k",
-      username: "kimchi123",
-      rate: "2.5",
-      isLiked: false,
-    },
-    {
-      src: img,
-      name: "Fluffy Japanese Soufflé Pancakes",
-      like: "15k",
-      username: "kimchi123",
-      rate: "2.5",
-      isLiked: false,
-    },
-    {
-      src: img,
-      name: "Fluffy Japanese Soufflé Pancakes",
-      like: "15k",
-      username: "kimchi123",
-      rate: "2.5",
-      isLiked: false,
-    },
-    {
-      src: img,
-      name: "Fluffy Japanese Soufflé Pancakes",
-      like: "15k",
-      username: "kimchi123",
-      rate: "2.5",
-      isLiked: true,
-    },
-    {
-      src: img,
-      name: "Fluffy Japanese Soufflé Pancakes",
-      like: "15k",
-      username: "kimchi123",
-      rate: "2.5",
-      isLiked: true,
-    },
-    {
-      src: img,
-      name: "Pumpkin Cake",
-      like: "15k",
-      username: "kimchi123",
-      rate: "5",
-      isLiked: false,
-    },
-    {
-      src: img,
-      name: "Fluffy Japanese Soufflé Pancakes",
-      like: "15k",
-      username: "kimchi123",
-      rate: "2.5",
-      isLiked: false,
-    },
-    {
-      src: img,
-      name: "Fluffy Japanese Soufflé Pancakes",
-      like: "15k",
-      username: "kimchi123",
-      rate: "2.5",
-      isLiked: false,
-    },
-    {
-      src: img,
-      name: "Fluffy Japanese Soufflé Pancakes",
-      like: "15k",
-      username: "kimchi123",
-      rate: "2.5",
-      isLiked: false,
-    },
-    {
-      src: img,
-      name: "Fluffy Japanese Soufflé Pancakes",
-      like: "15k",
-      username: "kimchi123",
-      rate: "2.5",
-      isLiked: true,
-    },
-  ];
-  return dummy_arr;
+  const response = await fetch("http://127.0.0.1:8000/recipes/");
+  if (response.status === 401) {
+    return response;
+  }
+  if (!response.ok) {
+    throw json({ message: "Could not load data" }, { status: 500 });
+  }
+  return response;
+
+  
 };

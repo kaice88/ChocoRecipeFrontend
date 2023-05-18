@@ -2,8 +2,10 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./Like.module.css";
 import "@fortawesome/fontawesome-free/css/all.css";
+
 function Like(props) {
   const [isLiked, setIsLiked] = useState(props.isLiked);
+
   let iconClass = "fa-regular fa-heart";
   if (isLiked) {
     iconClass = "fa-sharp fa-solid fa-heart";

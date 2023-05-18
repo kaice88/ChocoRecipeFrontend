@@ -10,10 +10,10 @@ function Recipe(props) {
       <div className={styles.row}>
         <div className={styles["icon-container"]}>
           <div className={styles["icon-button"]}>
-            <IconButton isDelete={false} id={props.name}></IconButton>
+            <IconButton isDelete={false} id={props.id}></IconButton>
           </div>
           <div className={styles["icon-button"]}>
-            <IconButton isDelete={true} id={props.name}></IconButton>
+            <IconButton isDelete={true} id={props.id}></IconButton>
           </div>
         </div>
         <img className={styles.img} src={props.src} alt={props.alt} />
@@ -46,17 +46,7 @@ export async function action({ request }) {
   const method = request.method;
   const data = await request.formData();
   const recipeId = data.get("recipeId");
-  const initialState = {
-    id: recipeId,
-    user: "kimchi",
-    title: "null",
-    direction: "null",
-    calories: "null",
-    like: "null",
-    time: "null",
-    last_edited: "null",
-    image: "null",
-  };
+
   // if (method === "POST") {
   //   return initialState;
   // }

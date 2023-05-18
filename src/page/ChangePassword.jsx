@@ -54,6 +54,7 @@ export const action = async ({ request, params }) => {
   };
 
   // const token = getAuthToken();
+  // Authorization: "Bearer " + token,
   // const response = await fetch("",{
   //   method: "PATCH",
   //   headers: {
