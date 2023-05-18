@@ -37,6 +37,21 @@ function ViewRecipe(props) {
       rate: "4.0",
       content: "Really good! Family loved it!!",
     },
+    {
+      src: "https://images.pexels.com/photos/1107807/pexels-photo-1107807.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      username: "Sarah Diaz",
+      time: "8 months ago",
+      rate: "3.0",
+      content:
+        "Turned out great. I think next time i might sprinkle a little garlic salt on the Zucchini before adding the beef mixture, it seemed like it could have used a little more seasoning. Also, i did not have enough mozzarella cheese on hand so i mixed what I had left with Monterey jack and it was good. I also cooked it 5 mins longer than what the recipe called for and it was perfect. My husband loved it! 😍",
+    },
+    {
+      src: "https://images.pexels.com/photos/1107807/pexels-photo-1107807.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      username: "AMorg",
+      time: "10 months ago",
+      rate: "4.0",
+      content: "Really good! Family loved it!!",
+    },
   ];
   //   const [value, setValue] = useState(1);
   const HandlerValue = (value) => {

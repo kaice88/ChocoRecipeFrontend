@@ -79,6 +79,7 @@ function Home(props) {
 
 export default Home;
 export const loader = async () => {
+
   const response = await fetch("http://127.0.0.1:8000/recipes/");
   if (response.status === 401) {
     return response;
@@ -87,4 +88,6 @@ export const loader = async () => {
     throw json({ message: "Could not load data" }, { status: 500 });
   }
   return response;
+
+  
 };
