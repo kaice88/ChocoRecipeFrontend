@@ -1,16 +1,17 @@
-import { useState } from "react";
+import { useSelector } from "react-redux";
 import { useParams, json, useLoaderData } from "react-router-dom";
 import ListIngredients from "../component/Ingredients/ListIngredients";
 import Directions from "../component/Directions/Directions";
 import styles from "./ViewRecipe.module.css";
 import Introview from "../component/Introview/Introview";
 import ListReviews from "../component/Reviews/ListReviews";
-import Rating from "../component/Rating/Rating";
+import Reviews from "../component/Reviews/Reviews";
 
 function ViewRecipe(props) {
   const data = useLoaderData();
   console.log(data);
   const params = useParams();
+  const user = useSelector((state) => state.user);
 
   const review_arr = [
     {
@@ -50,10 +51,10 @@ function ViewRecipe(props) {
         <div className={styles["container-introview"]}>
           <Introview
             name={data.title}
-            username="KIMCHI123"
+            username={data.author}
             rate={2.5}
             like="998"
-            review="2"
+            review={data.reviews.length}
             unitIngre={data.ingredients.length}
             unitMin={data.cooking_time}
             unitCalo={data.calories}
@@ -69,15 +70,16 @@ function ViewRecipe(props) {
           <Directions directions={data.directions}></Directions>
         </div>
         <div>
-          <ListReviews
-            review="2"
-            rateAverage={2.5}
-            src="https://images.pexels.com/photos/7144887/pexels-photo-7144887.jpeg?auto=compress&cs=tinysrgb&w=600"
-            username="Quynh Linh"
-            disabled={false}
+          <Reviews
+            review={data.reviews.length}
+            rateAverage={data.average_rating}
+            src={user.image}
+            username={user.username}
+            recipe_id={params.recipeId}
+            // disabled={false}
             MyReview=""
-            review_list={review_arr}
-          ></ListReviews>
+            review_list={data.reviews}
+          ></Reviews>
         </div>
       </div>
     </>
@@ -85,14 +87,15 @@ function ViewRecipe(props) {
 }
 
 export default ViewRecipe;
-export const loader = async () => {
+export const loader = async ({ res, params }) => {
   // const data = await request.formData();
   // const authUser = {
   //   username: data.get("username"),
   //   password: data.get("password"),
   // };
+  const id = params.recipeId;
 
-  const response = await fetch("http://127.0.0.1:8000/recipes/1");
+  const response = await fetch("http://127.0.0.1:8000/recipes/" + id);
   if (response.status === 401) {
     return response;
   }

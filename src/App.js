@@ -10,7 +10,9 @@ import ErrorPage from "./page/Error";
 import Profile from "./page/Profile";
 import { action as LogoutAction } from "./page/Logout";
 import MyRecipes, { loader as myRecipeLoader } from "./page/MyRecipes";
-import FavouriteRecipes from "./page/FavouriteRecipes";
+import FavouriteRecipes, {
+  loader as favoritesLoader,
+} from "./page/FavouriteRecipes";
 import Authenticate from "./page/Authenticate";
 import { action as deleteAction } from "./component/Recipes/Recipe";
 import ChangePassword, {
@@ -39,6 +41,7 @@ const router = createBrowserRouter([
           {
             path: "fav-recipes",
             element: <FavouriteRecipes></FavouriteRecipes>,
+            loader: favoritesLoader,
           },
           {
             path: "change-pwd",

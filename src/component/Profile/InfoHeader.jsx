@@ -1,23 +1,67 @@
+import { useState, useRef } from "react";
 import { Avatar } from "antd";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Button from "../UI/Button";
 import styles from "./InfoHeader.module.css";
 import Tab from "../UI/Tab";
-import { Link } from "react-router-dom";
+
+import { Link, json } from "react-router-dom";
 const tab_list = [
   { value: "My Recipes", isActive: true, route: "my-recipes" },
   { value: "Favorite Recipes", isActive: false, route: "fav-recipes" },
   { value: "Change Password", isActive: false, route: "change-pwd" },
 ];
 function InfoHeader() {
+  const [selectedImage, setSelectedImage] = useState(null);
+  const inputRef = useRef(null);
   const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  const handleImageUpload = async (event) => {
+    const file = event.target.files[0];
+    setSelectedImage(file);
+    if (selectedImage) {
+      console.log(selectedImage);
+      const formData = new FormData();
+      formData.append("image", selectedImage);
+      formData.append("username", user.username);
+      formData.append("email", user.email);
+      const response = await fetch(`http://127.0.0.1:8000/users/${user.id}`, {
+        method: "PUT",
+        body: formData,
+      });
+      if (!response.ok) {
+        throw json({ message: "Could not load data" }, { status: 500 });
+      }
+      // dispatch(userAction.updateUser());
+    }
+  };
+
+  // const handleSubmit = async () => {
+
+  // };
+
+  const handleDivClick = () => {
+    inputRef.current.click();
+  };
   return (
     <div className={styles.container}>
       <div className={styles.profile}>
         <section className={styles["profile-image"]}>
-          <Link to="my-recipes" className={styles.avatar}>
-            <Avatar size={100} src={user.image}></Avatar>
-          </Link>
+          <div onClick={handleDivClick}>
+            <Avatar
+              size={100}
+              src={user.image}
+              className={styles.input}
+            ></Avatar>
+            <input
+              ref={inputRef}
+              type="file"
+              accept="image/*"
+              onChange={handleImageUpload}
+              hidden
+            />
+          </div>
+
           <div className={styles.button}>
             <Button value="Log out"></Button>
           </div>
