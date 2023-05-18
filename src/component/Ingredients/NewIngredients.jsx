@@ -1,5 +1,6 @@
 import styles from "./NewIngredients.module.css";
 import Input from "../UI/Input";
+import { Form } from "react-router-dom";
 function NewIngredients(props) {
   return (
     <div className={styles.input}>
@@ -7,21 +8,23 @@ function NewIngredients(props) {
         label="Name"
         type="text"
         placeholder='Like "salt"'
-        name="name"
+        name={props.name}
       ></Input>
       <Input
         label="Quantity"
         type="text"
         placeholder='Like "1/2"'
-        name="quantity"
+        name={props.quantity}
       ></Input>
       <Input
         label="Unit"
         type="text"
         placeholder='Like "tbs"'
-        name="unit"
+        name={props.unit}
       ></Input>
-      <span className={styles.i} onClick={props.iclick}><i class="fa-regular fa-circle-xmark"></i></span>
+      <span className={styles.i} onClick={props.onClick}>
+        <i class="fa-regular fa-circle-xmark"></i>
+      </span>
     </div>
   );
 }

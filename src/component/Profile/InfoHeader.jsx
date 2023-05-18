@@ -13,9 +13,9 @@ const tab_list = [
 ];
 function InfoHeader() {
   const [selectedImage, setSelectedImage] = useState(null);
-  const inputRef = useRef(null);
+
   const user = useSelector((state) => state.user);
-  const dispatch = useDispatch();
+  const inputRef = useRef(null);
   const handleImageUpload = async (event) => {
     const file = event.target.files[0];
     setSelectedImage(file);
