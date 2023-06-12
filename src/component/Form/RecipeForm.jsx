@@ -6,17 +6,40 @@ import INPUT from "../UI/Input";
 import NewImage from "../NewItem/NewItem";
 import styles from "./RecipeForm.module.css";
 import NewIngredients from "../Ingredients/NewIngredients";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Button from "../UI/Button";
 const qs = require("qs");
 const { TextArea } = Input;
 function RecipeForm(props) {
+  const [recipe, setRecipe] = useState(props.recipe2);
+  const [title, setTitle] = useState("");
+  const [calories, setCalories] = useState("");
+  const [cooking_time, setCookingTime] = useState("");
+  const [directions, setDirections] = useState("");
+  const [image, setImage] = useState(null);
+  const [ingredient, setIngredient] = useState([]);
+  const [ingredients, setIngredients] = useState(2);
+  useEffect(() => {
+    if (recipe) {
+      if (recipe.title) {
+        setTitle(recipe.title);
+        setCalories(recipe.calories);
+        setCookingTime(recipe.cooking_time);
+        setDirections(recipe.directions);
+        setIngredient((prevState) => [...prevState, recipe.ingredients]);
+        setImage(recipe.image);
+        setIngredients(recipe.ingredients.length);
+      }
+    }
+  }, [recipe]);
+
   const [selectedImage, setSelectedImage] = useState(null);
   const user = useSelector((state) => state.user);
-  const recipe = props.recipe;
-  console.log(recipe);
-  const [ingredients, setIngredients] = useState(1);
+  // const recipe = props.recipe;
+  // console.log(recipe);
+
   const AddNewIngredient = () => {
+    console.log(ingredient.length);
     setIngredients((prev) => prev + 1);
   };
 
@@ -63,35 +86,35 @@ function RecipeForm(props) {
         }
       }
     }
-    const recipeObj = {
-      user_id: transformedObject.user_id,
-      title: transformedObject.title,
-      calories: transformedObject.calories,
-      cooking_time: transformedObject.cooking_time,
-      directions: transformedObject.directions,
-      image: transformedObject.image,
-    };
-    const ingredientsObj = transformedObject["ingredients"];
-    return { recipeObj, ingredientsObj };
+    // const recipeObj = {
+    //   user_id: transformedObject.user_id,
+    //   title: transformedObject.title,
+    //   calories: transformedObject.calories,
+    //   cooking_time: transformedObject.cooking_time,
+    //   directions: transformedObject.directions,
+    //   image: transformedObject.image,
+    // };
+    // const ingredientsObj = transformedObject["ingredients"];
+    return transformedObject;
   };
 
-  const convertObjectToFormData = (object) => {
-    const formData = new FormData();
-    for (let key in object) {
-      formData.append(key, object[key]);
-    }
-    return formData;
-  };
+  // const convertObjectToFormData = (object) => {
+  //   const formData = new FormData();
+  //   for (let key in object) {
+  //     formData.append(key, object[key]);
+  //   }
+  //   return formData;
+  // };
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     const formData = new FormData(event.target);
 
     const formObject = formDataToObject(formData);
-    const { recipeObj, ingredientsObj } = transformData(formObject);
-    const form = convertObjectToFormData(recipeObj);
-    props.handleFormSubmit(recipeObj, ingredientsObj);
-    console.log(recipeObj, ingredientsObj);
+    const recipeObj = transformData(formObject);
+    // const form = convertObjectToFormData(recipeObj);
+    props.handleFormSubmit(recipeObj);
+    console.log(recipeObj);
     // // console.log(form);
   };
   const inputRef = useRef(null);
@@ -99,6 +122,8 @@ function RecipeForm(props) {
   const handleImageUpload = async (event) => {
     const file = event.target.files[0];
     setSelectedImage(file);
+    setImage(`/images/recipe/${file.name}`);
+    console.log(image);
   };
   const handleDivClick = () => {
     inputRef.current.click();
@@ -115,7 +140,8 @@ function RecipeForm(props) {
             type="text"
             placeholder='Enter a title, like "Smothered Chicken"'
             name="title"
-            // value={recipe.title}
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
           ></INPUT>
           <div className={styles["time-calories-container"]}>
             <INPUT
@@ -124,17 +150,45 @@ function RecipeForm(props) {
               placeholder="Enter time cooking"
               name="cooking_time"
               // value={recipe.time}
+              value={cooking_time}
+              onChange={(e) => setCookingTime(e.target.value)}
             ></INPUT>
             <INPUT
               label="Calories"
               type="text"
               placeholder="Enter calories"
               name="calories"
+              value={calories}
+              onChange={(e) => setCalories(e.target.value)}
             ></INPUT>
           </div>
         </div>
         <div onClick={handleDivClick}>
-          <NewImage text="Image"></NewImage>
+          {image === null ? (
+            <NewImage text="Image"></NewImage>
+          ) : (
+            <div
+              style={{
+                width: "220px",
+                height: "220px",
+                overflow: "hidden",
+                position: "relative",
+              }}
+            >
+              <img
+                src={`http://127.0.0.1:8000${image}`}
+                alt="SquareImage"
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  position: "absolute",
+                  top: "0",
+                  left: "0",
+                }}
+              />
+            </div>
+          )}
           <input
             ref={inputRef}
             type="file"
@@ -146,36 +200,63 @@ function RecipeForm(props) {
       </div>
       <div>
         <Divider orientation="left">Ingredients</Divider>
-        {Array.from({ length: ingredients }, (_, index) => (
-          <NewIngredients
-            key={index}
-            name={`name-${index}`}
-            unit={`unit-${index}`}
-            quantity={`quantity-${index}`}
-            onClick={RemoveIngredient}
-          />
-        ))}
-        <div className={styles["container-row"]}>
+        <div
+          style={{
+            maxHeight: "400px",
+            overflow: "auto",
+            borderBottom: "2px solid #3a9691",
+            marginBottom: "20px",
+          }}
+        >
+          {Array.from({ length: ingredients }, (_, index) => (
+            <NewIngredients
+              key={index}
+              name={`name-${index}`}
+              unit={`unit-${index}`}
+              quantity={`quantity-${index}`}
+              onClick={RemoveIngredient}
+              // valueName={ingredient[index]["name"]}
+              // valueQuantity={ingredient[index]["quantity"]}
+              // valueUnit={ingredient[index]["unit"]}
+              // onChange={(e) =>
+              //   setIngredient({
+              //     name: e.valueName,
+              //     unit: e.valueQuantity,
+              //     quantity: e.valueUnit,
+              //   })
+              // }
+            />
+          ))}
+        </div>
+
+        <div
+          className={styles["container-row"]}
+          style={{
+            marginBottom: "20px",
+          }}
+        >
           <div className={styles["add-row"]} onClick={AddNewIngredient}>
             + Add ingredient
           </div>
         </div>
       </div>
       <div>
-        <Divider orientation="left">Ingredients</Divider>
+        <Divider orientation="left">Directions</Divider>
         <TextArea
           showCount
-          maxLength={500}
+          maxLength={1000}
           style={{
             height: 120,
             marginBottom: 24,
           }}
           placeholder="can resize"
           name="directions"
+          value={directions}
+          onChange={(e) => setDirections(e.target.value)}
         />
       </div>
       <Button type="submit" styles={true} value="Save"></Button>
-      <Button value="Cancel"></Button>
+      <Button value="Cancel" onClick={props.onCancel}></Button>
     </Form>
   );
 }

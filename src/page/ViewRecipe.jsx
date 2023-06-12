@@ -12,12 +12,19 @@ import Introview from "../component/Introview/Introview";
 import ListReviews from "../component/Reviews/ListReviews";
 import Reviews from "../component/Reviews/Reviews";
 import { Spin } from "antd";
+import { useEffect, useState } from "react";
 
 function ViewRecipe(props) {
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
   const data = useLoaderData();
-  console.log(data);
+  const [reviews, setReviews] = useState(data);
+  console.log(reviews);
+  useEffect(() => {
+    if (data) {
+      setReviews(data);
+    }
+  }, [data.reviews.length]);
   const params = useParams();
   const user = useSelector((state) => state.user);
 
@@ -37,35 +44,35 @@ function ViewRecipe(props) {
           <div className={styles.container}>
             <div className={styles["container-introview"]}>
               <Introview
-                name={data.title}
-                username={data.author}
-                rate={2.5}
-                like="998"
-                review={data.reviews.length}
-                unitIngre={data.ingredients.length}
-                unitMin={data.cooking_time}
-                unitCalo={data.calories}
-                src={`http://127.0.0.1:8000${data.image}`}
+                name={reviews.title}
+                username={reviews.author}
+                rate={reviews.average_rating}
+                like={reviews.num_likes}
+                review={reviews.reviews.length}
+                unitIngre={reviews.ingredients.length}
+                unitMin={reviews.cooking_time}
+                unitCalo={reviews.calories}
+                src={`http://127.0.0.1:8000${reviews.image}`}
               ></Introview>
             </div>
             <div className={styles["container-ingre"]}>
               <ListIngredients
-                ingredient_list={data["ingredients"]}
+                ingredient_list={reviews["ingredients"]}
               ></ListIngredients>
             </div>
             <div className={styles["container-directions"]}>
-              <Directions directions={data.directions}></Directions>
+              <Directions directions={reviews.directions}></Directions>
             </div>
             <div>
               <Reviews
-                review={data.reviews.length}
-                rateAverage={data.average_rating}
+                review={reviews.reviews.length}
+                rateAverage={reviews.average_rating}
                 src={user.image}
                 username={user.username}
                 recipe_id={params.recipeId}
                 // disabled={false}
                 MyReview=""
-                review_list={data.reviews}
+                review_list={reviews.reviews}
               ></Reviews>
             </div>
           </div>

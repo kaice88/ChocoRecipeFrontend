@@ -11,6 +11,7 @@ function Input(props) {
             }
             type={props.type}
             value={props.value}
+            onChange={props.onChange}
             placeholder={props.placeholder}
             name={props.name}
             id={props.label}

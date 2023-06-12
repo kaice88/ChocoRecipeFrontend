@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { json } from "react-router-dom";
+import { json, redirect, useNavigate } from "react-router-dom";
 import styles from "./NewReview.module.css";
 import Rating from "../Rating/Rating";
 import Button from "../UI/Button";
 import { getAuthToken } from "../../utils/auth";
 
 function NewReview(props) {
+  const navigate = useNavigate();
+
   const [showComment, setShowComment] = useState(false);
   const [textareaValue, setTextareaValue] = useState(props.myReview);
   const [rating, setRating] = useState(0);
@@ -45,6 +47,11 @@ function NewReview(props) {
       console.log(response.body);
       throw json({ message: "Could not load data" }, { status: 500 });
     }
+    // props.reset(true);
+    setShowComment(false);
+    setTextareaValue("");
+
+    window.location.reload();
   };
   return (
     <>

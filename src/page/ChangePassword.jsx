@@ -9,8 +9,20 @@ import Button from "../component/UI/Button";
 import Input from "../component/UI/Input";
 import { getAuthToken } from "../utils/auth";
 import styles from "./ChangePassword.module.css";
+import { useState, useEffect } from "react";
 function ChangePassword() {
   const data = useActionData();
+  const [password, setPassword] = useState({
+    current: "",
+    password1: "",
+    password2: "",
+  });
+  useEffect(() => {
+    if (data) {
+      if (data.userPassword)
+        setPassword({ current: "", password1: "", password2: "" });
+    }
+  }, [data]);
   const navigate = useNavigate();
   console.log(data);
   function cancelHandler() {
@@ -25,6 +37,10 @@ function ChangePassword() {
           label="Current password"
           type="password"
           placeholder="Type your current password"
+          value={password.current}
+          onChange={(e) =>
+            setPassword({ ...password, current: e.target.value })
+          }
         ></Input>
         {data && data.current && (
           <h3 className={styles.error}>{data.current}</h3>
@@ -41,6 +57,10 @@ function ChangePassword() {
           label="New password"
           type="password"
           placeholder="Type your new password"
+          value={password.password1}
+          onChange={(e) =>
+            setPassword({ ...password, password1: e.target.value })
+          }
         ></Input>
         {data && data.password1 && (
           <h3 className={styles.error}>{data.password1}</h3>
@@ -57,6 +77,10 @@ function ChangePassword() {
           label="Confirm password"
           type="password"
           placeholder="Confirm your new password"
+          value={password.password2}
+          onChange={(e) =>
+            setPassword({ ...password, password2: e.target.value })
+          }
         ></Input>
         {data && data.password2 && (
           <h3 className={styles.error}>{data.password2}</h3>
@@ -107,6 +131,8 @@ export const action = async ({ request, params }) => {
   if (!response.ok) {
     throw json({ message: "Could not change password" }, { status: 500 });
   }
+
+  return { userPassword };
 };
 // data.append("current", "");
 // data.append("password1", "");

@@ -6,7 +6,7 @@ import styles from "./InfoHeader.module.css";
 import Tab from "../UI/Tab";
 import { userAction } from "../../store/user-slice";
 
-import { Link, json } from "react-router-dom";
+import { Link, json, Form } from "react-router-dom";
 const tab_list = [
   { value: "My Recipes", isActive: true, route: "my-recipes" },
   { value: "Favorite Recipes", isActive: false, route: "fav-recipes" },
@@ -66,7 +66,7 @@ function InfoHeader() {
     }, 1500);
     setEditing(false);
   };
-  
+
   return (
     <div className={styles.container}>
       <div className={styles.profile}>
@@ -77,7 +77,9 @@ function InfoHeader() {
               src={user.image}
               className={styles.input}
             ></Avatar>
-            <span className={styles.camera}><i class="fa-solid fa-camera"></i></span>
+            <span className={styles.camera}>
+              <i class="fa-solid fa-camera"></i>
+            </span>
             <input
               ref={inputRef}
               type="file"
@@ -88,11 +90,13 @@ function InfoHeader() {
           </div>
 
           <div className={styles.button}>
-            <Button value="Log out"></Button>
+            <Form action="/auth/logout" method="post">
+              <Button type="submit" value="Log out"></Button>
+            </Form>
           </div>
         </section>
         <section className={styles["profile-text"]}>
-          <div>
+          {/* <div>
             {editing ? (
               <input
                 type="text"
@@ -113,10 +117,10 @@ function InfoHeader() {
                 </span>
               </div>
             )}
-          </div>
-          {/* <div>
-            <h2 className={styles.name}>{user.username}</h2>
           </div> */}
+          <div>
+            <h2 className={styles.name}>{user.username}</h2>
+          </div>
           <div>
             <h2 className={styles.email}>{user.email}</h2>
           </div>
