@@ -26,6 +26,22 @@ const items = [
 ];
 
 function Sidebar() {
+  const handleMenuSelect = (selectedItem) => {
+    console.log("Selected item:", selectedItem);
+    if (selectedItem.key === "1") {
+      navigate(`/`);
+    }
+    if (selectedItem.key === "2") {
+      navigate(`/profile/my-recipes`);
+    }
+    if (selectedItem.key === "3") {
+      navigate(`/profile/fav-recipes`);
+    }
+    if (selectedItem.key === "4") {
+      navigate(`/profile/change-pwd`);
+    }
+  };
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const data = useRouteLoaderData("root");
@@ -64,14 +80,15 @@ function Sidebar() {
         defaultSelectedKeys={["1"]}
         defaultOpenKeys={["sub1"]}
         items={items}
-        onClick={() => {
-          navigate(`/profile`);
-        }}
+        onSelect={handleMenuSelect}
+        // onClick={() => {
+        //   navigate(`/profile`);
+        // }}
       />
       {data && (
         <div className={styles.logout}>
           <Form action="/auth/logout" method="post">
-            <Button value="Log out"></Button>
+            <Button type="submit" value="Log out"></Button>
           </Form>
         </div>
       )}

@@ -9,11 +9,15 @@ function ModalRecipe(props) {
       onCancel={props.handleCancel}
       footer={null}
       width={800}
-      destroyOnClose={true}
+      // destroyOnClose={true}
     >
       <RecipeForm
         handleFormSubmit={props.handleFormSubmit}
-        heading="Create a new recipe"
+        heading={props.heading}
+        edit={props.edit}
+        recipe2={props.recipe2}
+        onOk={props.handleOk}
+        onCancel={props.handleCancel}
       ></RecipeForm>
     </Modal>
   );

@@ -3,7 +3,13 @@ import Review from "./Review";
 import styles from "./ListReviews.module.css";
 
 function ListReviews(props) {
+  const [refresh, setRefresh] = useState(false);
 
+  const handleEventInChild = () => {
+    // Thực hiện các hành động cần thiết khi sự kiện xảy ra trong component con
+    // Ví dụ: thay đổi giá trị của biến refresh ở component cha
+    setRefresh(!refresh);
+  };
   const FormatDate = (dateString) => {
     const inputDate = new Date(dateString);
     const currentDateTime = new Date();
@@ -18,7 +24,7 @@ function ListReviews(props) {
     );
 
     if (timeDifferenceInSeconds < 60) {
-      return "60s";
+      return "a few seconds ago";
     } else if (timeDifferenceInSeconds < 60 * 60) {
       const minutes = Math.floor(timeDifferenceInSeconds / 60);
       return `${minutes}m`;
@@ -33,16 +39,16 @@ function ListReviews(props) {
 
   const [visibleRows, setVisibleRows] = useState(3); // Số hàng đang hiển thị
   const handleShowMore = () => {
-    setVisibleRows(prevVisibleRows => prevVisibleRows + 3); // Tăng số hàng đang hiển thị lên 3
+    setVisibleRows((prevVisibleRows) => prevVisibleRows + 3); // Tăng số hàng đang hiển thị lên 3
   };
   const visibleRecipes = props.review_list.slice(0, visibleRows); // Lấy danh sách hàng hiển thị
-
 
   return (
     <>
       <div className={styles["list-review"]}>
         {visibleRecipes.map((item, index) => (
           <Review
+            onReset={handleEventInChild}
             className={styles.review}
             src={`http://127.0.0.1:8000${item.user_image}`}
             key={index}
@@ -50,13 +56,17 @@ function ListReviews(props) {
             time={FormatDate(item.last_edited)}
             rate={item.rating}
             content={item.content}
+            recipe_id={item.id}
           ></Review>
         ))}
         {visibleRows < props.review_list.length && ( // Kiểm tra xem còn hàng nào để hiển thị
-      <div className= {styles['show-container']}>
-        <button className={styles.show} onClick={handleShowMore}> <i class="fa-solid fa-caret-down"></i> Read More Reviews</button>
-      </div>
-      )}
+          <div className={styles["show-container"]}>
+            <button className={styles.show} onClick={handleShowMore}>
+              {" "}
+              <i class="fa-solid fa-caret-down"></i> Read More Reviews
+            </button>
+          </div>
+        )}
       </div>
     </>
   );
